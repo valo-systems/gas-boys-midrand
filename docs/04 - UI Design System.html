@@ -1,0 +1,1044 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>The Gas Boys — UI Design System 2026</title>
+<style>
+@import url('https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Inter:ital,wght@0,300;0,400;0,500;0,600;0,700;0,900;1,400&family=Space+Grotesk:wght@400;500;600;700&display=swap');
+
+:root {
+  --yellow:#FFD600; --orange:#FF6B00; --yellow-dim:rgba(255,214,0,0.12);
+  --orange-dim:rgba(255,107,0,0.12);
+  --bg:#0A0A0A; --surface:#141414; --card:#1C1C1C; --card2:#242424;
+  --border:#2E2E2E; --border2:#383838;
+  --text:#FAFAFA; --text2:#D4D4D4; --muted:#888; --muted2:#555;
+  --green:#22C55E; --green-dim:rgba(34,197,94,0.12);
+  --red:#EF4444; --blue:#3B82F6;
+  --grad: linear-gradient(135deg,#FFD600,#FF6B00);
+  --hero-shadow: 0 0 60px rgba(255,214,0,0.08);
+}
+
+*{box-sizing:border-box;margin:0;padding:0;}
+body{background:var(--bg);color:var(--text);font-family:'Inter',sans-serif;display:flex;height:100vh;overflow:hidden;}
+
+/* ── Sidebar ── */
+.sidebar{width:228px;min-width:228px;background:var(--surface);border-right:1px solid var(--border);overflow-y:auto;display:flex;flex-direction:column;}
+.brand-box{padding:22px 18px 16px;border-bottom:1px solid var(--border);}
+.brand-logo{font-family:'Bebas Neue';font-size:27px;background:var(--grad);-webkit-background-clip:text;-webkit-text-fill-color:transparent;line-height:1;}
+.brand-sub{font-size:9.5px;color:var(--muted);margin-top:3px;letter-spacing:2px;text-transform:uppercase;}
+.stack-pills{display:flex;flex-wrap:wrap;gap:4px;margin-top:10px;}
+.stack-pill{font-size:9px;padding:2px 7px;border-radius:20px;border:1px solid var(--border2);color:var(--muted);letter-spacing:.5px;}
+.stack-pill.hi{border-color:rgba(255,214,0,0.4);color:var(--yellow);background:var(--yellow-dim);}
+.nav-group{padding:10px 0;}
+.nav-label{font-size:9px;letter-spacing:2.5px;text-transform:uppercase;color:var(--muted2);padding:0 18px 6px;}
+.nav-item{display:flex;align-items:center;gap:9px;padding:8px 18px;font-size:12.5px;color:var(--muted);cursor:pointer;transition:all .15s;border-left:2px solid transparent;}
+.nav-item:hover{color:var(--text);background:rgba(255,255,255,0.03);}
+.nav-item.active{color:var(--yellow);border-left-color:var(--yellow);background:var(--yellow-dim);}
+.nav-icon{width:14px;height:14px;flex-shrink:0;opacity:.5;}
+.nav-item.active .nav-icon{opacity:1;}
+
+/* ── Main ── */
+.main{flex:1;overflow-y:auto;background:var(--bg);}
+.page{display:none;} .page.active{display:block;}
+.page-header{padding:28px 40px 22px;border-bottom:1px solid var(--border);position:sticky;top:0;background:rgba(10,10,10,.92);backdrop-filter:blur(12px);z-index:10;display:flex;align-items:center;justify-content:space-between;}
+.page-title{font-family:'Bebas Neue';font-size:30px;letter-spacing:1px;color:var(--yellow);}
+.page-badge{font-size:10.5px;background:var(--card);border:1px solid var(--border);color:var(--muted);padding:4px 12px;border-radius:20px;}
+.content{padding:32px 40px;}
+.section{margin-bottom:52px;}
+.section-title{font-family:'Space Grotesk';font-size:11px;font-weight:700;text-transform:uppercase;letter-spacing:3px;color:var(--muted);margin-bottom:18px;display:flex;align-items:center;gap:10px;}
+.section-title::after{content:'';flex:1;height:1px;background:var(--border);}
+
+/* ── Color swatches ── */
+.swatches{display:flex;gap:12px;flex-wrap:wrap;}
+.swatch{border-radius:10px;overflow:hidden;width:118px;border:1px solid var(--border);}
+.swatch-color{height:60px;}
+.swatch-info{padding:8px 10px;background:var(--card);}
+.swatch-name{font-size:11.5px;font-weight:600;}
+.swatch-hex{font-size:10px;color:var(--muted);font-family:monospace;margin-top:1px;}
+
+/* ── Type scale ── */
+.type-scale{display:flex;flex-direction:column;gap:12px;}
+.type-row{display:flex;align-items:center;gap:20px;padding:12px 16px;background:var(--card);border-radius:8px;border:1px solid var(--border);}
+.type-label{font-size:9.5px;color:var(--muted2);text-transform:uppercase;letter-spacing:1.5px;min-width:88px;flex-shrink:0;}
+
+/* ── Comp grid ── */
+.comp-grid{display:grid;grid-template-columns:1fr 1fr;gap:16px;}
+.comp-card{background:var(--card);border:1px solid var(--border);border-radius:14px;padding:20px;}
+.comp-card-title{font-size:10px;text-transform:uppercase;letter-spacing:2px;color:var(--muted);margin-bottom:16px;font-weight:600;}
+
+/* ── HeroUI-style Buttons ── */
+.btn{display:inline-flex;align-items:center;gap:7px;padding:10px 20px;border-radius:10px;font-size:13.5px;font-weight:600;cursor:pointer;border:none;font-family:'Inter';transition:all .18s cubic-bezier(.4,0,.2,1);letter-spacing:.1px;}
+.btn-primary{background:var(--yellow);color:#000;box-shadow:0 2px 12px rgba(255,214,0,0.3);}
+.btn-primary:hover{background:#ffe033;box-shadow:0 4px 20px rgba(255,214,0,0.45);transform:translateY(-1px);}
+.btn-secondary{background:var(--yellow-dim);color:var(--yellow);border:1.5px solid rgba(255,214,0,0.35);}
+.btn-secondary:hover{background:rgba(255,214,0,0.18);}
+.btn-ghost{background:var(--card2);color:var(--text2);border:1px solid var(--border);}
+.btn-ghost:hover{background:var(--border);border-color:var(--border2);}
+.btn-danger{background:rgba(239,68,68,0.12);color:var(--red);border:1px solid rgba(239,68,68,0.25);}
+.btn-whatsapp{background:#25D366;color:#fff;box-shadow:0 2px 12px rgba(37,211,102,0.3);}
+.btn-sm{padding:6px 14px;font-size:12px;border-radius:8px;}
+.btn-lg{padding:13px 28px;font-size:15px;border-radius:12px;}
+.btn-xl{padding:15px 32px;font-size:16px;border-radius:12px;}
+.btns-row{display:flex;gap:10px;flex-wrap:wrap;align-items:center;}
+
+/* ── HeroUI-style Cards (glass) ── */
+.glass-card{background:rgba(28,28,28,0.7);backdrop-filter:blur(16px);border:1px solid var(--border);border-radius:16px;}
+.glass-card-yellow{background:rgba(255,214,0,0.05);border:1px solid rgba(255,214,0,0.2);border-radius:16px;}
+
+/* ── Cylinder selector ── */
+.cylinder-cards{display:flex;gap:10px;}
+.cyl-card{flex:1;background:var(--card2);border:2px solid var(--border);border-radius:14px;padding:16px 12px;text-align:center;cursor:pointer;transition:all .2s cubic-bezier(.4,0,.2,1);}
+.cyl-card:hover{border-color:var(--border2);transform:translateY(-2px);}
+.cyl-card.sel{border-color:var(--yellow);background:var(--yellow-dim);box-shadow:0 0 0 1px var(--yellow),0 8px 24px rgba(255,214,0,0.15);}
+.cyl-size{font-family:'Bebas Neue';font-size:38px;color:var(--yellow);line-height:1;}
+.cyl-unit{font-size:11px;color:var(--muted);margin-bottom:8px;font-weight:500;}
+.cyl-price{font-size:17px;font-weight:700;}
+.cyl-label{font-size:10px;color:var(--muted);margin-top:2px;}
+
+/* ── Form ── */
+.input-field{width:100%;background:var(--card2);border:1.5px solid var(--border);border-radius:10px;padding:10px 14px;color:var(--text);font-family:'Inter';font-size:13.5px;outline:none;transition:border .15s;}
+.input-field:focus{border-color:var(--yellow);}
+select.input-field{appearance:none;}
+.input-label{font-size:11.5px;color:var(--muted);margin-bottom:5px;display:block;font-weight:500;letter-spacing:.2px;}
+.input-group{margin-bottom:14px;}
+
+/* ── Badges ── */
+.badge{display:inline-flex;align-items:center;gap:5px;padding:3px 10px;border-radius:20px;font-size:11px;font-weight:600;letter-spacing:.2px;}
+.badge-y{background:var(--yellow-dim);color:var(--yellow);border:1px solid rgba(255,214,0,0.2);}
+.badge-g{background:var(--green-dim);color:var(--green);border:1px solid rgba(34,197,94,0.2);}
+.badge-o{background:var(--orange-dim);color:var(--orange);border:1px solid rgba(255,107,0,0.2);}
+.badge-m{background:var(--card2);color:var(--muted);border:1px solid var(--border);}
+
+/* ── Mockup frame ── */
+.mockup-frame{background:var(--surface);border:1px solid var(--border);border-radius:16px;overflow:hidden;box-shadow:var(--hero-shadow);}
+.mockup-bar{background:var(--card);padding:10px 16px;display:flex;align-items:center;gap:8px;border-bottom:1px solid var(--border);}
+.mockup-dots{display:flex;gap:5px;}
+.dot{width:9px;height:9px;border-radius:50%;}
+.mockup-url{background:var(--card2);border:1px solid var(--border);border-radius:5px;padding:3px 12px;font-size:10.5px;color:var(--muted);margin:0 auto;font-family:monospace;}
+
+/* ── Site Nav ── */
+.m-nav{display:flex;align-items:center;padding:0 24px;height:58px;background:rgba(10,10,10,0.96);backdrop-filter:blur(20px);border-bottom:1px solid var(--border);justify-content:space-between;}
+.m-logo{font-family:'Bebas Neue';font-size:23px;background:var(--grad);-webkit-background-clip:text;-webkit-text-fill-color:transparent;}
+.m-nav-links{display:flex;gap:24px;}
+.m-nav-link{font-size:12px;color:var(--muted);font-weight:500;}
+.m-nav-link.active{color:var(--text);}
+.m-nav-cta{background:var(--yellow);color:#000;font-size:11px;font-weight:700;padding:7px 16px;border-radius:8px;display:flex;align-items:center;gap:5px;}
+
+/* ── Hero ── */
+.m-hero{padding:52px 28px 40px;text-align:center;background:radial-gradient(ellipse at 50% -10%,rgba(255,214,0,0.1) 0%,transparent 65%);}
+.m-tag{display:inline-flex;align-items:center;gap:6px;background:var(--yellow-dim);color:var(--yellow);font-size:10px;padding:4px 12px;border-radius:20px;letter-spacing:1.5px;text-transform:uppercase;margin-bottom:16px;border:1px solid rgba(255,214,0,0.2);}
+.m-h1{font-family:'Bebas Neue';font-size:56px;line-height:.92;color:var(--text);letter-spacing:1px;}
+.m-h1 span{background:var(--grad);-webkit-background-clip:text;-webkit-text-fill-color:transparent;}
+.m-sub{font-size:13px;color:var(--muted);margin:14px auto 0;max-width:340px;line-height:1.65;}
+.m-ctas{display:flex;gap:10px;justify-content:center;margin-top:22px;flex-wrap:wrap;}
+.m-trust{background:var(--card);border-top:1px solid var(--border);border-bottom:1px solid var(--border);display:flex;justify-content:space-around;padding:14px 20px;}
+.m-trust-item{text-align:center;}
+.m-trust-val{font-family:'Bebas Neue';font-size:24px;color:var(--yellow);}
+.m-trust-lbl{font-size:9px;color:var(--muted);text-transform:uppercase;letter-spacing:1.5px;margin-top:1px;}
+
+/* ── Service Cards ── */
+.m-svc-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:10px;}
+.m-svc-card{background:var(--card);border:1px solid var(--border);border-radius:12px;padding:18px 14px;transition:all .2s;}
+.m-svc-card:hover{border-color:var(--border2);transform:translateY(-2px);}
+.m-svc-icon{width:36px;height:36px;border-radius:10px;background:var(--yellow-dim);border:1px solid rgba(255,214,0,0.2);display:flex;align-items:center;justify-content:center;margin-bottom:10px;}
+.m-svc-name{font-size:12.5px;font-weight:600;margin-bottom:4px;}
+.m-svc-desc{font-size:10.5px;color:var(--muted);line-height:1.5;}
+
+/* ── How it works ── */
+.m-how{padding:24px 24px;background:var(--card);border-top:1px solid var(--border);border-bottom:1px solid var(--border);}
+.m-how-steps{display:grid;grid-template-columns:repeat(4,1fr);gap:0;position:relative;}
+.m-how-steps::before{content:'';position:absolute;top:15px;left:12%;right:12%;height:1px;background:linear-gradient(90deg,var(--yellow),var(--orange));opacity:.3;z-index:0;}
+.m-step{text-align:center;padding:0 8px;position:relative;z-index:1;}
+.m-step-num{width:30px;height:30px;border-radius:50%;background:var(--yellow);color:#000;font-weight:700;font-size:13px;display:flex;align-items:center;justify-content:center;margin:0 auto 10px;box-shadow:0 0 0 4px var(--card),0 0 0 5px rgba(255,214,0,0.3);}
+.m-step-lbl{font-size:11.5px;font-weight:600;margin-bottom:2px;}
+.m-step-sub{font-size:10px;color:var(--muted);}
+
+/* ── Reviews ── */
+.m-review-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:10px;}
+.m-review-card{background:var(--card);border:1px solid var(--border);border-radius:12px;padding:16px;}
+.m-stars{display:flex;gap:2px;margin-bottom:8px;}
+.m-stars svg{fill:var(--yellow);}
+.m-review-text{font-size:11px;color:var(--text2);line-height:1.6;margin-bottom:10px;font-style:italic;}
+.m-reviewer{font-size:10.5px;font-weight:600;}
+.m-reviewer-loc{font-size:9.5px;color:var(--muted);}
+.google-badge{display:flex;align-items:center;gap:4px;margin-top:6px;}
+.g-dot{width:8px;height:8px;border-radius:50%;}
+
+/* ── Google Reviews widget ── */
+.reviews-widget{background:var(--card);border:1px solid var(--border);border-radius:16px;padding:20px;}
+.reviews-widget-header{display:flex;align-items:center;justify-content:space-between;margin-bottom:16px;}
+.reviews-rating-big{display:flex;align-items:center;gap:12px;}
+.rating-num{font-family:'Bebas Neue';font-size:48px;color:var(--yellow);line-height:1;}
+.rating-stars{display:flex;gap:3px;margin-bottom:4px;}
+.rating-count{font-size:11px;color:var(--muted);}
+.google-logo-badge{display:flex;align-items:center;gap:5px;background:var(--card2);border:1px solid var(--border);border-radius:8px;padding:5px 10px;font-size:11px;font-weight:600;}
+
+/* ── Price table ── */
+.price-table{width:100%;border-collapse:collapse;font-size:12.5px;}
+.price-table th{text-align:left;padding:9px 14px;background:var(--card2);color:var(--muted);font-size:10px;text-transform:uppercase;letter-spacing:1.5px;font-weight:600;}
+.price-table th:first-child{border-radius:8px 0 0 0;}
+.price-table th:last-child{border-radius:0 8px 0 0;}
+.price-table td{padding:10px 14px;border-bottom:1px solid var(--border);}
+.price-table tr:hover td{background:rgba(255,255,255,.02);}
+.pv{color:var(--yellow);font-weight:700;}
+
+/* ── Admin ── */
+.admin-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:12px;margin-bottom:20px;}
+.admin-stat{background:var(--card);border:1px solid var(--border);border-radius:12px;padding:18px;display:flex;flex-direction:column;gap:4px;}
+.admin-stat-icon{width:32px;height:32px;border-radius:8px;background:var(--yellow-dim);display:flex;align-items:center;justify-content:center;margin-bottom:8px;}
+.admin-stat-val{font-family:'Bebas Neue';font-size:38px;color:var(--yellow);line-height:1;}
+.admin-stat-lbl{font-size:11px;color:var(--muted);}
+
+/* ── Spec grid ── */
+.spec-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:12px;}
+.spec-card{background:var(--card);border:1px solid var(--border);border-radius:12px;padding:18px;}
+.spec-icon{width:40px;height:40px;border-radius:10px;background:var(--yellow-dim);border:1px solid rgba(255,214,0,0.15);display:flex;align-items:center;justify-content:center;margin-bottom:12px;}
+.spec-title{font-size:13px;font-weight:600;margin-bottom:4px;}
+.spec-val{font-size:11.5px;color:var(--muted);line-height:1.6;}
+
+/* ── Icon showcase ── */
+.icon-grid{display:grid;grid-template-columns:repeat(6,1fr);gap:10px;}
+.icon-cell{background:var(--card);border:1px solid var(--border);border-radius:10px;padding:14px 8px;text-align:center;display:flex;flex-direction:column;align-items:center;gap:6px;}
+.icon-cell svg{display:block;}
+.icon-name{font-size:9.5px;color:var(--muted);letter-spacing:.3px;}
+.icon-weight{font-size:8.5px;color:var(--muted2);margin-top:1px;}
+
+.gbar{height:2px;background:var(--grad);border-radius:2px;margin-bottom:14px;}
+.wire{background:var(--card);border:1px solid var(--border);border-radius:12px;padding:18px;margin-bottom:12px;}
+.step-ind-row{display:flex;margin-bottom:20px;border-radius:10px;overflow:hidden;border:1px solid var(--border);}
+.step-ind{flex:1;padding:10px;text-align:center;font-size:11px;font-weight:600;color:var(--muted);background:var(--card2);}
+.step-ind.active{color:var(--yellow);background:var(--yellow-dim);}
+.step-ind.done{color:var(--green);background:var(--green-dim);}
+
+::-webkit-scrollbar{width:4px;} ::-webkit-scrollbar-thumb{background:var(--border2);border-radius:2px;}
+</style>
+
+<!-- Phosphor Icons SVG Sprite (subset – all icons used in this doc) -->
+<svg xmlns="http://www.w3.org/2000/svg" style="display:none">
+  <!-- Truck (Duotone) -->
+  <symbol id="ph-truck" viewBox="0 0 256 256">
+    <path d="M247.42,117l-14-35A15.93,15.93,0,0,0,218.58,72H184V64a8,8,0,0,0-8-8H24A16,16,0,0,0,8,72V184a16,16,0,0,0,16,16H41a32,32,0,0,0,62,0h50a32,32,0,0,0,62,0h17a16,16,0,0,0,16-16V128A8,8,0,0,0,247.42,117ZM72,208a16,16,0,1,1,16-16A16,16,0,0,1,72,208Zm164,0a16,16,0,1,1,16-16A16,16,0,0,1,236,208Z" opacity=".2" fill="currentColor"/>
+    <path d="M247.42,117l-14-35A15.93,15.93,0,0,0,218.58,72H184V64a8,8,0,0,0-8-8H24A16,16,0,0,0,8,72V184a16,16,0,0,0,16,16H41a32,32,0,0,0,62,0h50a32,32,0,0,0,62,0h17a16,16,0,0,0,16-16V128A8,8,0,0,0,247.42,117ZM218.58,88,229,115.86c-.64,0-1.28-.1-1.93-.1L184,116V88ZM24,72H168v88H24ZM72,216a16,16,0,1,1,16-16A16,16,0,0,1,72,216Zm164,0a16,16,0,1,1,16-16A16,16,0,0,1,236,216Zm8-48H228.94A32,32,0,0,0,205,152H184V132l43.88,0c.37,0,.74,0,1.11,0H240Z" fill="currentColor"/>
+  </symbol>
+  <!-- Wrench (Duotone) -->
+  <symbol id="ph-wrench" viewBox="0 0 256 256">
+    <path d="M215.09,68.91A72,72,0,0,1,92.6,164.69L59.31,198a24,24,0,0,1-33.94-34L59.31,130A72,72,0,0,1,155.09,7.45Z" opacity=".2" fill="currentColor"/>
+    <path d="M216.67,62.81A80,80,0,0,1,90.19,171.9L57,205.09a32,32,0,0,1-45.26-45.26L45,126.57A80,80,0,0,1,154.15,0a8,8,0,0,1,4.33,13.86L137.86,34.48A16,16,0,0,0,160,56l20.62-20.62a8,8,0,0,1,13.86,4.33A80.37,80.37,0,0,1,196,56,79.67,79.67,0,0,1,216.67,62.81Zm-24.68,14a64,64,0,0,0-28-14.9L148.28,87.61a32,32,0,0,1-44.93-44.93L122.72,23.3A64,64,0,0,0,56.92,118.51a8,8,0,0,1-2.38,7.31L17.37,163a16,16,0,0,0,22.63,22.63l37.14-37.17a8,8,0,0,1,7.31-2.38A64,64,0,0,0,192,88C192,83.55,191.56,79.14,192,76.8Z" fill="currentColor"/>
+  </symbol>
+  <!-- Gear (Duotone) -->
+  <symbol id="ph-gear" viewBox="0 0 256 256">
+    <path d="M128,80a48,48,0,1,0,48,48A48,48,0,0,0,128,80Z" opacity=".2" fill="currentColor"/>
+    <path d="M128,72a56,56,0,1,0,56,56A56.06,56.06,0,0,0,128,72Zm0,96a40,40,0,1,1,40-40A40,40,0,0,1,128,168Zm109.82-52.16-17.78-10.26a87.33,87.33,0,0,0,0-15.16l17.78-10.26a7.91,7.91,0,0,0,3.69-9.46,112.1,112.1,0,0,0-24.78-42.87A7.88,7.88,0,0,0,207,96.08l-17.78,10.26a87,87,0,0,0-13.13-7.57V78.51a7.9,7.9,0,0,0-6.25-7.73,112.47,112.47,0,0,0-49.5,0,7.9,7.9,0,0,0-6.25,7.73V99.77A87,87,0,0,0,100.79,107.4L83.01,97.14a7.88,7.88,0,0,0-9.74,1.81A112.1,112.1,0,0,0,48.49,141.82a7.91,7.91,0,0,0,3.69,9.46l17.78,10.26a87.33,87.33,0,0,0,0,15.16L52.18,186.96a7.91,7.91,0,0,0-3.69,9.46,112.1,112.1,0,0,0,24.78,42.87,7.88,7.88,0,0,0,9.74,1.81L100.79,231A87,87,0,0,0,113.92,238.54V259.8a7.9,7.9,0,0,0,6.25,7.73,112.47,112.47,0,0,0,49.5,0,7.9,7.9,0,0,0,6.25-7.73V238.54A87,87,0,0,0,189.05,231l17.78,10.26a7.88,7.88,0,0,0,9.74-1.81,112.1,112.1,0,0,0,24.78-42.87A7.91,7.91,0,0,0,237.82,187.84Z" fill="currentColor"/>
+  </symbol>
+  <!-- Certificate/Seal (Duotone) -->
+  <symbol id="ph-seal-check" viewBox="0 0 256 256">
+    <path d="M225.86,102.82c-3.77-3.94-7.67-8-9.14-11.57-1.36-3.27-1.44-8.69-1.52-13.94-.15-9.76-.31-20.82-8-28.51s-18.75-7.85-28.51-8c-5.25-.08-10.67-.16-13.94-1.52-3.56-1.47-7.63-5.37-11.57-9.14C146.44,23.32,138.84,16,128,16s-18.44,7.32-25.18,13.68c-3.94,3.77-8,7.67-11.57,9.14C88,40.18,82.58,40.26,77.33,40.34c-9.76.15-20.82.31-28.51,8S40.97,67.09,40.82,76.85c-.08,5.25-.16,10.67-1.52,13.94-1.47,3.56-5.37,7.63-9.14,11.57C23.32,109.56,16,117.16,16,128s7.32,18.44,13.68,25.18c3.77,3.94,7.67,8,9.14,11.57,1.36,3.27,1.44,8.69,1.52,13.94.15,9.76.31,20.82,8,28.51s18.75,7.85,28.51,8c5.25.08,10.67.16,13.94,1.52,3.56,1.47,7.63,5.37,11.57,9.14C109.56,232.68,117.16,240,128,240s18.44-7.32,25.18-13.68c3.94-3.77,8-7.67,11.57-9.14,3.27-1.36,8.69-1.44,13.94-1.52,9.76-.15,20.82-.31,28.51-8s7.85-18.75,8-28.51c.08-5.25.16-10.67,1.52-13.94,1.47-3.56,5.37-7.63,9.14-11.57C232.68,146.44,240,138.84,240,128S232.68,109.56,225.86,102.82Z" opacity=".2" fill="currentColor"/>
+    <path d="M173.66,98.34a8,8,0,0,1,0,11.32l-56,56a8,8,0,0,1-11.32,0l-24-24a8,8,0,0,1,11.32-11.32L112,148.69l50.34-50.35A8,8,0,0,1,173.66,98.34Z" fill="currentColor"/>
+  </symbol>
+  <!-- Fire (Fill) -->
+  <symbol id="ph-fire" viewBox="0 0 256 256">
+    <path d="M181.23,172.86C170.43,193.49,149.43,208,128,208c-43.45,0-80-38.93-80-88a92.12,92.12,0,0,1,3.7-26.14C39.19,108.42,32,125.27,32,144c0,52.94,42.06,96,96,96s96-43.06,96-96C224,114.32,206.36,88.5,181.23,172.86ZM137.3,33.09a8,8,0,0,0-9.35,1.7C124.64,38.5,96,73.18,96,104a32,32,0,0,0,64,0C160,72,140.89,36.61,137.3,33.09Z" fill="currentColor"/>
+  </symbol>
+  <!-- MapPin (Duotone) -->
+  <symbol id="ph-map-pin" viewBox="0 0 256 256">
+    <path d="M128,24a80,80,0,1,0,80,80A80.09,80.09,0,0,0,128,24Zm0,112a32,32,0,1,1,32-32A32,32,0,0,1,128,136Z" opacity=".2" fill="currentColor"/>
+    <path d="M128,16a96,96,0,1,0,96,96A96.11,96.11,0,0,0,128,16Zm0,176c-44.18,0-80-35.82-80-80s35.82-80,80-80,80,35.82,80,80S172.18,192,128,192Zm0-112a32,32,0,1,0,32,32A32,32,0,0,0,128,80Z" fill="currentColor"/>
+    <path d="M128,232c-13.13,0-32-6.31-32-24,0-20,23-45.47,32-55.33C137,163.53,160,189,160,208,160,225.69,141.13,232,128,232Z" opacity=".2" fill="currentColor"/>
+    <path d="M128,16a96,96,0,1,0,96,96A96.11,96.11,0,0,0,128,16Zm0,176a96,96,0,0,1,0-192,96,96,0,0,1,0,192Z" fill="currentColor"/>
+  </symbol>
+  <!-- Phone (Fill) -->
+  <symbol id="ph-phone" viewBox="0 0 256 256">
+    <path d="M222.37,158.46l-47.11-21.11-.13-.06a16,16,0,0,0-15.17,1.4,8.12,8.12,0,0,0-.75.56L134.87,160c-15.42-7.49-31.34-23.29-38.83-38.56l20.78-24.71c.2-.25.39-.5.57-.77a16,16,0,0,0,1.32-15.06.6.6,0,0,0-.06-.12L97.54,33.64a16,16,0,0,0-16.62-9.52A56.26,56.26,0,0,0,32,80c0,79.4,64.6,144,144,144a56.26,56.26,0,0,0,55.88-48.92A16,16,0,0,0,222.37,158.46Z" fill="currentColor"/>
+  </symbol>
+  <!-- Clock (Duotone) -->
+  <symbol id="ph-clock" viewBox="0 0 256 256">
+    <path d="M224,128a96,96,0,1,1-96-96A96,96,0,0,1,224,128Z" opacity=".2" fill="currentColor"/>
+    <path d="M128,24A104,104,0,1,0,232,128,104.11,104.11,0,0,0,128,24Zm0,192a88,88,0,1,1,88-88A88.1,88.1,0,0,1,128,216Zm64-88a8,8,0,0,1-8,8H128a8,8,0,0,1-8-8V72a8,8,0,0,1,16,0v48h48A8,8,0,0,1,192,128Z" fill="currentColor"/>
+  </symbol>
+  <!-- Star (Fill) -->
+  <symbol id="ph-star" viewBox="0 0 256 256">
+    <path d="M234.5,114.38l-45.1,39.36,13.51,58.6a16,16,0,0,1-23.84,17.34l-51.11-31-51,31a16,16,0,0,1-23.84-17.34l13.49-58.54-45.11-39.42a16,16,0,0,1,9.21-28.06l59.46-5.15,23.21-55.36a15.95,15.95,0,0,1,29.44,0h0L166,81.17l59.44,5.15a16,16,0,0,1,9.11,28.06Z" fill="currentColor"/>
+  </symbol>
+  <!-- Package (Duotone) -->
+  <symbol id="ph-package" viewBox="0 0 256 256">
+    <path d="M223.68,66.15,135.68,18a15.88,15.88,0,0,0-15.36,0l-88,48.17a16,16,0,0,0-8.32,14v95.64a16,16,0,0,0,8.32,14l88,48.17a15.88,15.88,0,0,0,15.36,0l88-48.17a16,16,0,0,0,8.32-14V80.18A16,16,0,0,0,223.68,66.15Z" opacity=".2" fill="currentColor"/>
+    <path d="M223.68,66.15,135.68,18a15.88,15.88,0,0,0-15.36,0l-88,48.17a16,16,0,0,0-8.32,14v95.64a16,16,0,0,0,8.32,14l88,48.17a15.88,15.88,0,0,0,15.36,0l88-48.17a16,16,0,0,0,8.32-14V80.18A16,16,0,0,0,223.68,66.15ZM128,32l80.35,44L128,120,47.65,76ZM40,90l80,43.78V218.3L40,174.17Zm96,128.3V133.82L216,90v84.17Z" fill="currentColor"/>
+  </symbol>
+  <!-- ChartBar (Duotone) -->
+  <symbol id="ph-chart-bar" viewBox="0 0 256 256">
+    <path d="M224,200H32V72a8,8,0,0,1,8-8H80a8,8,0,0,1,8,8v48h48V96a8,8,0,0,1,8-8h48a8,8,0,0,1,8,8v104Z" opacity=".2" fill="currentColor"/>
+    <path d="M232,208a8,8,0,0,1-8,8H32a8,8,0,0,1,0-16H224A8,8,0,0,1,232,208ZM40,192h40a8,8,0,0,0,8-8V72a8,8,0,0,0-8-8H40a8,8,0,0,0-8,8V184A8,8,0,0,0,40,192Zm88,0h40a8,8,0,0,0,8-8V96a8,8,0,0,0-8-8H128a8,8,0,0,0-8,8V184A8,8,0,0,0,128,192Z" fill="currentColor"/>
+  </symbol>
+  <!-- Users (Duotone) -->
+  <symbol id="ph-users" viewBox="0 0 256 256">
+    <path d="M152,80a48,48,0,1,1-48-48A48,48,0,0,1,152,80Z" opacity=".2" fill="currentColor"/>
+    <path d="M244.8,150.4a8,8,0,1,1-9.6,12.8A96.28,96.28,0,0,0,176,144a8,8,0,0,1,0-16,48,48,0,1,0-48-48,8,8,0,0,1-16,0,64,64,0,1,1,82.3,61.5,112.45,112.45,0,0,1,50.5,8.9ZM104,144a80.09,80.09,0,0,0-80,80,8,8,0,0,0,16,0,64,64,0,0,1,128,0,8,8,0,0,0,16,0A80.09,80.09,0,0,0,104,144Z" fill="currentColor"/>
+  </symbol>
+  <!-- ArrowRight (Bold) -->
+  <symbol id="ph-arrow-right" viewBox="0 0 256 256">
+    <path d="M221.66,133.66l-72,72a8,8,0,0,1-11.32-11.32L196.69,136H40a8,8,0,0,1,0-16H196.69L138.34,61.66a8,8,0,0,1,11.32-11.32l72,72A8,8,0,0,1,221.66,133.66Z" fill="currentColor"/>
+  </symbol>
+  <!-- CheckCircle (Fill) -->
+  <symbol id="ph-check-circle" viewBox="0 0 256 256">
+    <path d="M173.66,98.34a8,8,0,0,1,0,11.32l-56,56a8,8,0,0,1-11.32,0l-24-24a8,8,0,0,1,11.32-11.32L112,148.69l50.34-50.35A8,8,0,0,1,173.66,98.34ZM232,128A104,104,0,1,1,128,24,104.11,104.11,0,0,1,232,128Z" fill="currentColor"/>
+  </symbol>
+  <!-- WhatsApp logo -->
+  <symbol id="ph-chats" viewBox="0 0 256 256">
+    <path d="M168,112a8,8,0,0,1-8,8H96a8,8,0,0,1,0-16h64A8,8,0,0,1,168,112Zm-8,24H96a8,8,0,0,0,0,16h64a8,8,0,0,0,0-16Zm72-8A104,104,0,0,1,79.12,219.82L45.07,231.17a16,16,0,0,1-20.24-20.24l11.35-34.05A104,104,0,1,1,232,128Zm-16,0A88,88,0,1,0,51.81,172.06a8,8,0,0,1,.66,6.54L40,216l37.4-12.47a8,8,0,0,1,6.54.66A88,88,0,0,0,216,128Z" fill="currentColor"/>
+  </symbol>
+  <!-- Warning (Duotone) -->
+  <symbol id="ph-warning" viewBox="0 0 256 256">
+    <path d="M236.8,188.09,149.35,36a24.76,24.76,0,0,0-42.7,0L19.2,188.09a23.51,23.51,0,0,0,0,23.72A24.35,24.35,0,0,0,40.55,224h174.9a24.35,24.35,0,0,0,21.33-12.19A23.51,23.51,0,0,0,236.8,188.09Z" opacity=".2" fill="currentColor"/>
+    <path d="M120,136V104a8,8,0,0,1,16,0v32a8,8,0,0,1-16,0Zm8,40a12,12,0,1,0,12,12A12,12,0,0,0,128,176Z" fill="currentColor"/>
+  </symbol>
+  <!-- Envelope (Duotone) -->
+  <symbol id="ph-envelope" viewBox="0 0 256 256">
+    <path d="M224,56l-96,88L32,56Z" opacity=".2" fill="currentColor"/>
+    <path d="M224,48H32a16,16,0,0,0-16,16V192a16,16,0,0,0,16,16H224a16,16,0,0,0,16-16V64A16,16,0,0,0,224,48Zm-6.85,24L128,152.15,38.85,72ZM224,192H32V82.31l89.56,82.27a8,8,0,0,0,10.88,0L224,82.31V192Z" fill="currentColor"/>
+  </symbol>
+  <!-- Storefront (Duotone) -->
+  <symbol id="ph-storefront" viewBox="0 0 256 256">
+    <path d="M232,104a56,56,0,0,1-16,39V208a8,8,0,0,1-8,8H48a8,8,0,0,1-8-8V143a56,56,0,0,1-16-39V96l24-56H208l24,56Z" opacity=".2" fill="currentColor"/>
+    <path d="M232,96a57,57,0,0,1-8.35,29.37A57,57,0,0,1,168,152a56.61,56.61,0,0,1-40-16.69A56.61,56.61,0,0,1,88,152a57,57,0,0,1-55.65-45.63A57,57,0,0,1,24,96V88.55a8,8,0,0,1,.62-3.1l24-56A8,8,0,0,1,56,24H200a8,8,0,0,1,7.38,4.9l24,56A8,8,0,0,1,232,88.55Zm-56,73.21V200H80V169.21A72.06,72.06,0,0,0,128,184,72.06,72.06,0,0,0,176,169.21ZM80,216h96v8a8,8,0,0,1-16,0H96a8,8,0,0,1-16,0Z" fill="currentColor"/>
+  </symbol>
+  <!-- Person (Fill) -->
+  <symbol id="ph-user" viewBox="0 0 256 256">
+    <path d="M230.92,212c-15.23-26.33-38.7-45.21-66.09-54.16a72,72,0,1,0-73.66,0C63.78,166.78,40.31,185.66,25.08,212a8,8,0,1,0,13.85,8c18.84-32.56,52.14-52,89.07-52s70.23,19.44,89.07,52a8,8,0,1,0,13.85-8Z" fill="currentColor"/>
+  </symbol>
+  <!-- Clipboard (Duotone) -->
+  <symbol id="ph-clipboard" viewBox="0 0 256 256">
+    <path d="M200,48H56a8,8,0,0,0-8,8V208a8,8,0,0,0,8,8H200a8,8,0,0,0,8-8V56A8,8,0,0,0,200,48Z" opacity=".2" fill="currentColor"/>
+    <path d="M165.69,42.06A48,48,0,0,0,80.31,42,40,40,0,0,0,40,80V208a16,16,0,0,0,16,16H200a16,16,0,0,0,16-16V80A40,40,0,0,0,165.69,42.06ZM96,56a32,32,0,0,1,64,0v8H96Zm120,152H40V80A24,24,0,0,1,80.31,58.13,48.13,48.13,0,0,0,80,64v8a8,8,0,0,0,8,8h80a8,8,0,0,0,8-8V64a48.13,48.13,0,0,0-.31-5.87A24,24,0,0,1,216,80Z" fill="currentColor"/>
+  </symbol>
+  <!-- Lightning (Fill) -->
+  <symbol id="ph-lightning" viewBox="0 0 256 256">
+    <path d="M215.79,118.17a8,8,0,0,0-5.3-5.94l-70.3-21.42,31.32-71a8,8,0,0,0-11.65-9.93l-120,100a8,8,0,0,0,2.93,13.65l68.87,21.47L81.35,222a8,8,0,0,0,12.11,9.42l120-112A8,8,0,0,0,215.79,118.17Z" fill="currentColor"/>
+  </symbol>
+</svg>
+
+</head>
+<body>
+
+<!-- ═══════════════════════════════════════════
+     SIDEBAR
+══════════════════════════════════════════════ -->
+<nav class="sidebar">
+  <div class="brand-box">
+    <div class="brand-logo">THE GAS BOYS</div>
+    <div class="brand-sub">UI Design System · 2026</div>
+    <div class="stack-pills" style="margin-top:10px;">
+      <span class="stack-pill hi">HeroUI v3</span>
+      <span class="stack-pill hi">Phosphor</span>
+      <span class="stack-pill">Tailwind v4</span>
+      <span class="stack-pill">Framer Motion</span>
+      <span class="stack-pill">Laravel 11</span>
+    </div>
+  </div>
+
+  <div class="nav-group">
+    <div class="nav-label">Brand</div>
+    <div class="nav-item active" onclick="show('brand',this)">
+      <svg class="nav-icon" viewBox="0 0 256 256"><use href="#ph-lightning"/></svg> Brand System
+    </div>
+    <div class="nav-item" onclick="show('icons',this)">
+      <svg class="nav-icon" viewBox="0 0 256 256"><use href="#ph-seal-check"/></svg> Icons (Phosphor)
+    </div>
+    <div class="nav-item" onclick="show('comp',this)">
+      <svg class="nav-icon" viewBox="0 0 256 256"><use href="#ph-package"/></svg> Components
+    </div>
+    <div class="nav-item" onclick="show('reviews-comp',this)">
+      <svg class="nav-icon" viewBox="0 0 256 256"><use href="#ph-star"/></svg> Google Reviews
+    </div>
+  </div>
+
+  <div class="nav-group">
+    <div class="nav-label">Pages</div>
+    <div class="nav-item" onclick="show('home',this)">
+      <svg class="nav-icon" viewBox="0 0 256 256"><use href="#ph-fire"/></svg> Home
+    </div>
+    <div class="nav-item" onclick="show('order',this)">
+      <svg class="nav-icon" viewBox="0 0 256 256"><use href="#ph-truck"/></svg> Order Gas
+    </div>
+    <div class="nav-item" onclick="show('services',this)">
+      <svg class="nav-icon" viewBox="0 0 256 256"><use href="#ph-wrench"/></svg> Services
+    </div>
+    <div class="nav-item" onclick="show('book',this)">
+      <svg class="nav-icon" viewBox="0 0 256 256"><use href="#ph-clipboard"/></svg> Book a Service
+    </div>
+    <div class="nav-item" onclick="show('shop',this)">
+      <svg class="nav-icon" viewBox="0 0 256 256"><use href="#ph-storefront"/></svg> Shop
+    </div>
+    <div class="nav-item" onclick="show('quote',this)">
+      <svg class="nav-icon" viewBox="0 0 256 256"><use href="#ph-chart-bar"/></svg> Bulk Quote
+    </div>
+    <div class="nav-item" onclick="show('about',this)">
+      <svg class="nav-icon" viewBox="0 0 256 256"><use href="#ph-users"/></svg> About Us
+    </div>
+    <div class="nav-item" onclick="show('contact',this)">
+      <svg class="nav-icon" viewBox="0 0 256 256"><use href="#ph-map-pin"/></svg> Contact
+    </div>
+    <div class="nav-item" onclick="show('admin',this)">
+      <svg class="nav-icon" viewBox="0 0 256 256"><use href="#ph-chart-bar"/></svg> Admin Dashboard
+    </div>
+  </div>
+</nav>
+
+<div class="main">
+
+<!-- ═══ BRAND ═══ -->
+<div id="page-brand" class="page active">
+  <div class="page-header"><div class="page-title">Brand System</div><div class="page-badge">Identity · Colors · Typography</div></div>
+  <div class="content">
+
+    <div class="section">
+      <div class="section-title">Logo Lockups</div>
+      <div style="display:flex;gap:16px;flex-wrap:wrap;">
+        <div style="background:var(--card);border:1px solid var(--border);border-radius:14px;padding:28px 36px;text-align:center;">
+          <div style="font-family:'Bebas Neue';font-size:9px;letter-spacing:4px;color:var(--muted2);">THE</div>
+          <div style="font-family:'Bebas Neue';font-size:50px;background:linear-gradient(135deg,#FFD600,#FF9500);-webkit-background-clip:text;-webkit-text-fill-color:transparent;line-height:.9;">GAS</div>
+          <div style="font-family:'Bebas Neue';font-size:50px;background:linear-gradient(135deg,#FF9500,#FF6B00);-webkit-background-clip:text;-webkit-text-fill-color:transparent;line-height:.9;">BOYS</div>
+          <div style="font-size:7px;color:var(--muted2);margin-top:8px;letter-spacing:3px;">MIDRAND</div>
+        </div>
+        <div style="background:var(--yellow);border-radius:14px;padding:28px 36px;text-align:center;">
+          <div style="font-family:'Bebas Neue';font-size:9px;letter-spacing:4px;color:rgba(0,0,0,0.35);">THE</div>
+          <div style="font-family:'Bebas Neue';font-size:50px;color:#000;line-height:.9;">GAS</div>
+          <div style="font-family:'Bebas Neue';font-size:50px;color:#000;line-height:.9;">BOYS</div>
+          <div style="font-size:7px;color:rgba(0,0,0,0.4);margin-top:8px;letter-spacing:3px;">MIDRAND</div>
+        </div>
+        <div style="background:#1a1a1a;border:2px solid var(--yellow);border-radius:14px;padding:28px 36px;text-align:center;box-shadow:0 0 30px rgba(255,214,0,0.12);">
+          <div style="font-family:'Bebas Neue';font-size:9px;letter-spacing:4px;color:var(--muted2);">THE</div>
+          <div style="font-family:'Bebas Neue';font-size:50px;color:var(--yellow);line-height:.9;">GAS</div>
+          <div style="font-family:'Bebas Neue';font-size:50px;color:var(--orange);line-height:.9;">BOYS</div>
+          <div style="font-size:7px;color:var(--muted);margin-top:8px;letter-spacing:3px;">MIDRAND</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="section">
+      <div class="section-title">Color Palette</div>
+      <div class="swatches">
+        <div class="swatch"><div class="swatch-color" style="background:#FFD600;"></div><div class="swatch-info"><div class="swatch-name" style="color:var(--text);">Gas Yellow</div><div class="swatch-hex">#FFD600 · Primary</div></div></div>
+        <div class="swatch"><div class="swatch-color" style="background:#FF6B00;"></div><div class="swatch-info"><div class="swatch-name" style="color:var(--text);">Flame Orange</div><div class="swatch-hex">#FF6B00 · Accent</div></div></div>
+        <div class="swatch"><div class="swatch-color" style="background:linear-gradient(135deg,#FFD600,#FF6B00);"></div><div class="swatch-info"><div class="swatch-name" style="color:var(--text);">Energy Grad</div><div class="swatch-hex">CTAs · Hero text</div></div></div>
+        <div class="swatch"><div class="swatch-color" style="background:#0A0A0A;border-bottom:1px solid #222;"></div><div class="swatch-info"><div class="swatch-name" style="color:var(--text);">Deep Black</div><div class="swatch-hex">#0A0A0A · BG</div></div></div>
+        <div class="swatch"><div class="swatch-color" style="background:#141414;"></div><div class="swatch-info"><div class="swatch-name" style="color:var(--text);">Surface</div><div class="swatch-hex">#141414 · Panels</div></div></div>
+        <div class="swatch"><div class="swatch-color" style="background:#1C1C1C;"></div><div class="swatch-info"><div class="swatch-name" style="color:var(--text);">Card</div><div class="swatch-hex">#1C1C1C · Cards</div></div></div>
+        <div class="swatch"><div class="swatch-color" style="background:#22C55E;"></div><div class="swatch-info"><div class="swatch-name" style="color:var(--text);">Success</div><div class="swatch-hex">#22C55E · Delivered</div></div></div>
+        <div class="swatch"><div class="swatch-color" style="background:#EF4444;"></div><div class="swatch-info"><div class="swatch-name" style="color:var(--text);">Alert</div><div class="swatch-hex">#EF4444 · Errors</div></div></div>
+      </div>
+    </div>
+
+    <div class="section">
+      <div class="section-title">Typography</div>
+      <div class="type-scale">
+        <div class="type-row"><span class="type-label">Display XL</span><span style="font-family:'Bebas Neue';font-size:54px;background:var(--grad);-webkit-background-clip:text;-webkit-text-fill-color:transparent;line-height:1;">ORDER GAS NOW</span></div>
+        <div class="type-row"><span class="type-label">Display L</span><span style="font-family:'Bebas Neue';font-size:38px;color:var(--text);line-height:1;">GAS DELIVERIES MIDRAND</span></div>
+        <div class="type-row"><span class="type-label">Section H1</span><span style="font-family:'Space Grotesk';font-size:26px;font-weight:700;">Fast, Safe, Certified.</span></div>
+        <div class="type-row"><span class="type-label">Body</span><span style="font-size:14px;color:var(--text2);line-height:1.6;">We supply LPG gas to residential, commercial and industrial clients across Midrand and Gauteng.</span></div>
+        <div class="type-row"><span class="type-label">Caption</span><span style="font-size:11.5px;color:var(--muted);">Certified by the LPG Safety Association · SANS 10087 Compliant</span></div>
+        <div class="type-row"><span class="type-label">Label / UI</span><span style="font-size:10px;text-transform:uppercase;letter-spacing:2.5px;color:var(--muted);font-weight:600;">Price Per Kg · R20.90</span></div>
+      </div>
+      <div style="margin-top:14px;display:flex;gap:8px;">
+        <span style="background:var(--yellow-dim);border:1px solid rgba(255,214,0,0.3);border-radius:6px;padding:4px 12px;font-size:11px;color:var(--yellow);font-weight:500;">Bebas Neue — Display/Hero</span>
+        <span style="background:var(--card2);border:1px solid var(--border);border-radius:6px;padding:4px 12px;font-size:11px;color:var(--muted);">Space Grotesk — Section headings</span>
+        <span style="background:var(--card2);border:1px solid var(--border);border-radius:6px;padding:4px 12px;font-size:11px;color:var(--muted);">Inter — Body / UI / Forms</span>
+      </div>
+    </div>
+
+  </div>
+</div>
+
+<!-- ═══ ICONS ═══ -->
+<div id="page-icons" class="page">
+  <div class="page-header"><div class="page-title">Icons — Phosphor</div><div class="page-badge">7,700+ icons · 6 weights · MIT · @phosphor-icons/react</div></div>
+  <div class="content">
+
+    <div class="section">
+      <div class="section-title">Why Phosphor</div>
+      <div style="display:grid;grid-template-columns:repeat(3,1fr);gap:12px;margin-bottom:0;">
+        <div class="glass-card-yellow" style="padding:16px;"><div style="font-size:12px;font-weight:700;margin-bottom:4px;color:var(--yellow);">6 Weights</div><div style="font-size:11.5px;color:var(--muted);line-height:1.6;">Thin · Light · Regular · Bold · Fill · Duotone — use Fill for active states, Duotone for decorative.</div></div>
+        <div class="glass-card" style="padding:16px;"><div style="font-size:12px;font-weight:700;margin-bottom:4px;">7,700+ Icons</div><div style="font-size:11.5px;color:var(--muted);line-height:1.6;">Everything you need — gas, truck, tools, maps, admin, social, UI controls. Nothing missing.</div></div>
+        <div class="glass-card" style="padding:16px;"><div style="font-size:12px;font-weight:700;margin-bottom:4px;">React Native</div><div style="font-size:11.5px;color:var(--muted);line-height:1.6;"><code style="font-size:10.5px;color:var(--yellow);">&lt;Truck size={24} weight="duotone" /&gt;</code> — one prop to switch weights per context.</div></div>
+      </div>
+    </div>
+
+    <div class="section">
+      <div class="section-title">Icon Set — Gas Boys Pages</div>
+      <div class="icon-grid">
+        <div class="icon-cell"><svg width="28" height="28" color="var(--yellow)" viewBox="0 0 256 256"><use href="#ph-truck"/></svg><div class="icon-name">Truck</div><div class="icon-weight">Duotone</div></div>
+        <div class="icon-cell"><svg width="28" height="28" color="var(--yellow)" viewBox="0 0 256 256"><use href="#ph-wrench"/></svg><div class="icon-name">Wrench</div><div class="icon-weight">Duotone</div></div>
+        <div class="icon-cell"><svg width="28" height="28" color="var(--yellow)" viewBox="0 0 256 256"><use href="#ph-gear"/></svg><div class="icon-name">Gear</div><div class="icon-weight">Duotone</div></div>
+        <div class="icon-cell"><svg width="28" height="28" color="var(--yellow)" viewBox="0 0 256 256"><use href="#ph-seal-check"/></svg><div class="icon-name">SealCheck</div><div class="icon-weight">Duotone</div></div>
+        <div class="icon-cell"><svg width="28" height="28" color="var(--orange)" viewBox="0 0 256 256"><use href="#ph-fire"/></svg><div class="icon-name">Fire</div><div class="icon-weight">Fill</div></div>
+        <div class="icon-cell"><svg width="28" height="28" color="var(--yellow)" viewBox="0 0 256 256"><use href="#ph-package"/></svg><div class="icon-name">Package</div><div class="icon-weight">Duotone</div></div>
+        <div class="icon-cell"><svg width="28" height="28" color="var(--yellow)" viewBox="0 0 256 256"><use href="#ph-map-pin"/></svg><div class="icon-name">MapPin</div><div class="icon-weight">Duotone</div></div>
+        <div class="icon-cell"><svg width="28" height="28" color="var(--yellow)" viewBox="0 0 256 256"><use href="#ph-phone"/></svg><div class="icon-name">Phone</div><div class="icon-weight">Fill</div></div>
+        <div class="icon-cell"><svg width="28" height="28" color="var(--yellow)" viewBox="0 0 256 256"><use href="#ph-clock"/></svg><div class="icon-name">Clock</div><div class="icon-weight">Duotone</div></div>
+        <div class="icon-cell"><svg width="28" height="28" color="var(--yellow)" viewBox="0 0 256 256"><use href="#ph-star"/></svg><div class="icon-name">Star</div><div class="icon-weight">Fill</div></div>
+        <div class="icon-cell"><svg width="28" height="28" color="var(--yellow)" viewBox="0 0 256 256"><use href="#ph-chart-bar"/></svg><div class="icon-name">ChartBar</div><div class="icon-weight">Duotone</div></div>
+        <div class="icon-cell"><svg width="28" height="28" color="var(--yellow)" viewBox="0 0 256 256"><use href="#ph-users"/></svg><div class="icon-name">Users</div><div class="icon-weight">Duotone</div></div>
+        <div class="icon-cell"><svg width="28" height="28" color="var(--yellow)" viewBox="0 0 256 256"><use href="#ph-clipboard"/></svg><div class="icon-name">Clipboard</div><div class="icon-weight">Duotone</div></div>
+        <div class="icon-cell"><svg width="28" height="28" color="var(--green)" viewBox="0 0 256 256"><use href="#ph-check-circle"/></svg><div class="icon-name">CheckCircle</div><div class="icon-weight">Fill</div></div>
+        <div class="icon-cell"><svg width="28" height="28" color="var(--yellow)" viewBox="0 0 256 256"><use href="#ph-envelope"/></svg><div class="icon-name">Envelope</div><div class="icon-weight">Duotone</div></div>
+        <div class="icon-cell"><svg width="28" height="28" color="var(--yellow)" viewBox="0 0 256 256"><use href="#ph-storefront"/></svg><div class="icon-name">Storefront</div><div class="icon-weight">Duotone</div></div>
+        <div class="icon-cell"><svg width="28" height="28" color="var(--yellow)" viewBox="0 0 256 256"><use href="#ph-arrow-right"/></svg><div class="icon-name">ArrowRight</div><div class="icon-weight">Bold</div></div>
+        <div class="icon-cell"><svg width="28" height="28" color="#25D366" viewBox="0 0 256 256"><use href="#ph-chats"/></svg><div class="icon-name">Chats</div><div class="icon-weight">Fill</div></div>
+      </div>
+    </div>
+
+    <div class="section">
+      <div class="section-title">Weight Comparison — Truck Icon</div>
+      <div style="display:flex;gap:12px;">
+        <div class="icon-cell" style="flex:1;padding:20px 10px;">
+          <svg width="36" height="36" color="var(--muted)" viewBox="0 0 256 256"><use href="#ph-truck"/></svg>
+          <div class="icon-name" style="font-size:11px;margin-top:4px;">Regular</div><div class="icon-weight">Nav inactive</div>
+        </div>
+        <div class="icon-cell" style="flex:1;padding:20px 10px;border-color:rgba(255,214,0,0.3);background:var(--yellow-dim);">
+          <svg width="36" height="36" color="var(--yellow)" viewBox="0 0 256 256"><use href="#ph-truck"/></svg>
+          <div class="icon-name" style="font-size:11px;color:var(--yellow);margin-top:4px;">Duotone</div><div class="icon-weight">Feature cards</div>
+        </div>
+        <div class="icon-cell" style="flex:1;padding:20px 10px;">
+          <svg width="36" height="36" color="var(--yellow)" viewBox="0 0 256 256"><use href="#ph-truck"/></svg>
+          <div class="icon-name" style="font-size:11px;margin-top:4px;">Fill</div><div class="icon-weight">Active states</div>
+        </div>
+      </div>
+      <div style="margin-top:12px;padding:12px 16px;background:var(--card);border:1px solid var(--border);border-radius:10px;font-size:12px;color:var(--muted);font-family:monospace;">
+        <span style="color:var(--muted2);">// React usage</span><br>
+        <span style="color:var(--yellow);">import</span> {'{'} Truck, Wrench, Fire, SealCheck {'}'} <span style="color:var(--yellow);">from</span> <span style="color:var(--green);">'@phosphor-icons/react'</span>;<br><br>
+        &lt;<span style="color:var(--orange);">Truck</span> size={24} weight=<span style="color:var(--green);">"duotone"</span> color=<span style="color:var(--green);">"#FFD600"</span> /&gt;<br>
+        &lt;<span style="color:var(--orange);">Fire</span> size={20} weight=<span style="color:var(--green);">"fill"</span> /&gt; <span style="color:var(--muted2);">// active / selected</span>
+      </div>
+    </div>
+
+  </div>
+</div>
+
+<!-- ═══ COMPONENTS ═══ -->
+<div id="page-comp" class="page">
+  <div class="page-header"><div class="page-title">Components</div><div class="page-badge">HeroUI v3 · Tailwind v4 · Framer Motion</div></div>
+  <div class="content">
+    <div class="comp-grid">
+
+      <div class="comp-card">
+        <div class="comp-card-title">Buttons — HeroUI Style</div>
+        <div class="btns-row" style="margin-bottom:10px;">
+          <div class="btn btn-primary"><svg width="15" height="15" viewBox="0 0 256 256"><use href="#ph-fire"/></svg> Order Gas</div>
+          <div class="btn btn-secondary">Get a Quote</div>
+          <div class="btn btn-ghost">Learn More</div>
+        </div>
+        <div class="btns-row" style="margin-bottom:10px;">
+          <div class="btn btn-primary btn-xl"><svg width="18" height="18" viewBox="0 0 256 256"><use href="#ph-truck"/></svg> Order Now</div>
+          <div class="btn btn-whatsapp"><svg width="15" height="15" viewBox="0 0 256 256"><use href="#ph-chats"/></svg> WhatsApp</div>
+        </div>
+        <div class="btns-row">
+          <div class="btn btn-danger btn-sm"><svg width="12" height="12" viewBox="0 0 256 256"><use href="#ph-warning"/></svg> Cancel</div>
+          <div class="btn btn-secondary btn-sm">View Details</div>
+          <div class="btn btn-ghost btn-sm">Edit</div>
+        </div>
+      </div>
+
+      <div class="comp-card">
+        <div class="comp-card-title">Status Badges</div>
+        <div style="display:flex;gap:8px;flex-wrap:wrap;margin-bottom:12px;">
+          <div class="badge badge-y"><svg width="10" height="10" viewBox="0 0 256 256"><use href="#ph-lightning"/></svg> In Stock</div>
+          <div class="badge badge-g"><svg width="10" height="10" viewBox="0 0 256 256"><use href="#ph-check-circle"/></svg> Delivered</div>
+          <div class="badge badge-o"><svg width="10" height="10" viewBox="0 0 256 256"><use href="#ph-truck"/></svg> En Route</div>
+          <div class="badge badge-m">Pending</div>
+        </div>
+        <div style="display:flex;gap:8px;flex-wrap:wrap;">
+          <div class="badge badge-y"><svg width="10" height="10" viewBox="0 0 256 256"><use href="#ph-seal-check"/></svg> LPG Certified</div>
+          <div class="badge badge-g">SANS Compliant</div>
+          <div class="badge badge-o">ORYX Gas</div>
+        </div>
+      </div>
+
+      <div class="comp-card">
+        <div class="comp-card-title">HeroUI Cylinder Selector</div>
+        <div class="cylinder-cards">
+          <div class="cyl-card"><div class="cyl-size">9</div><div class="cyl-unit">kg</div><div class="cyl-price">R180</div><div class="cyl-label">Refill</div></div>
+          <div class="cyl-card sel"><div class="cyl-size">19</div><div class="cyl-unit">kg</div><div class="cyl-price">R395</div><div class="cyl-label">Refill ✓</div></div>
+          <div class="cyl-card"><div class="cyl-size">48</div><div class="cyl-unit">kg</div><div class="cyl-price">R970</div><div class="cyl-label">Refill</div></div>
+        </div>
+        <div style="font-size:10.5px;color:var(--muted);margin-top:10px;">Spring animation on select · border glow · scale(1.02)</div>
+      </div>
+
+      <div class="comp-card">
+        <div class="comp-card-title">Form Fields</div>
+        <div class="input-group"><label class="input-label">Delivery Address</label><input class="input-field" placeholder="12 Midrand Ave, Crowthorne" readonly></div>
+        <div class="input-group"><label class="input-label">Contact Number</label><input class="input-field" placeholder="+27 64 026 3510" readonly></div>
+        <div class="input-group" style="margin-bottom:0;"><label class="input-label">Cylinder Size</label><select class="input-field"><option>19 kg — R395.00</option><option>9 kg — R180.00</option><option>48 kg — R970.00</option></select></div>
+      </div>
+
+      <div class="comp-card">
+        <div class="comp-card-title">Price Table</div>
+        <table class="price-table">
+          <thead><tr><th>Size</th><th>Price/kg</th><th>Refill</th></tr></thead>
+          <tbody>
+            <tr><td>5 kg</td><td class="pv">R20.90</td><td class="pv">R104.50</td></tr>
+            <tr><td>9 kg</td><td class="pv">R20.90</td><td class="pv">R180.00</td></tr>
+            <tr><td>14 kg</td><td class="pv">R20.90</td><td class="pv">R292.60</td></tr>
+            <tr><td>19 kg</td><td class="pv">R20.90</td><td class="pv">R395.00</td></tr>
+            <tr><td>48 kg</td><td class="pv">R20.90</td><td class="pv">R970.00</td></tr>
+          </tbody>
+        </table>
+      </div>
+
+      <div class="comp-card">
+        <div class="comp-card-title">WhatsApp Pre-fill</div>
+        <div style="background:#0D1117;border:1px solid var(--border);border-radius:12px;padding:14px;">
+          <div style="font-size:9.5px;color:var(--muted2);margin-bottom:10px;text-align:center;font-family:monospace;">wa.me/27640263510?text=...</div>
+          <div style="background:#1f2c34;border-radius:10px 10px 10px 2px;padding:12px 14px;max-width:90%;">
+            <div style="font-size:11.5px;line-height:1.55;color:var(--text2);">Hi Gas Boys! I'd like to order a <strong style="color:var(--yellow);">19kg refill</strong> delivered to Crowthorne. When can you deliver?</div>
+            <div style="font-size:9px;color:var(--muted2);margin-top:6px;text-align:right;">Pre-filled on button tap ✓</div>
+          </div>
+          <div class="btn btn-whatsapp btn-sm" style="width:100%;justify-content:center;margin-top:12px;"><svg width="13" height="13" viewBox="0 0 256 256"><use href="#ph-chats"/></svg> Chat on WhatsApp</div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</div>
+
+<!-- ═══ GOOGLE REVIEWS ═══ -->
+<div id="page-reviews-comp" class="page">
+  <div class="page-header"><div class="page-title">Google Reviews</div><div class="page-badge">Places API → Laravel cache → Custom React widget</div></div>
+  <div class="content">
+
+    <div class="section">
+      <div class="section-title">How It Works — Architecture</div>
+      <div style="display:grid;grid-template-columns:repeat(3,1fr);gap:12px;margin-bottom:0;">
+        <div class="glass-card" style="padding:16px;">
+          <div style="display:flex;align-items:center;gap:8px;margin-bottom:8px;"><div style="width:26px;height:26px;border-radius:8px;background:var(--yellow-dim);display:flex;align-items:center;justify-content:center;font-family:'Bebas Neue';font-size:14px;color:var(--yellow);">1</div><div style="font-size:12px;font-weight:600;">Google Places API</div></div>
+          <div style="font-size:11px;color:var(--muted);line-height:1.6;">Laravel cron runs every 6 hrs → fetches latest reviews via <code style="color:var(--yellow);font-size:10px;">places/details</code> → stores in MySQL <code style="color:var(--yellow);font-size:10px;">google_reviews</code> table.</div>
+        </div>
+        <div class="glass-card" style="padding:16px;">
+          <div style="display:flex;align-items:center;gap:8px;margin-bottom:8px;"><div style="width:26px;height:26px;border-radius:8px;background:var(--yellow-dim);display:flex;align-items:center;justify-content:center;font-family:'Bebas Neue';font-size:14px;color:var(--yellow);">2</div><div style="font-size:12px;font-weight:600;">REST Endpoint</div></div>
+          <div style="font-size:11px;color:var(--muted);line-height:1.6;"><code style="color:var(--yellow);font-size:10px;">GET /api/reviews</code> returns cached reviews — no API key exposed client-side, instant load, no third-party iframe.</div>
+        </div>
+        <div class="glass-card" style="padding:16px;">
+          <div style="display:flex;align-items:center;gap:8px;margin-bottom:8px;"><div style="width:26px;height:26px;border-radius:8px;background:var(--yellow-dim);display:flex;align-items:center;justify-content:center;font-family:'Bebas Neue';font-size:14px;color:var(--yellow);">3</div><div style="font-size:12px;font-weight:600;">Custom React Widget</div></div>
+          <div style="font-size:11px;color:var(--muted);line-height:1.6;">Branded card grid matching Gas Boys design system. Stars, reviewer name, date, Google icon. No generic embed styling.</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="section">
+      <div class="section-title">Reviews Widget — Component Preview</div>
+      <div class="reviews-widget">
+        <div class="reviews-widget-header">
+          <div class="reviews-rating-big">
+            <div class="rating-num">4.8</div>
+            <div>
+              <div class="rating-stars">
+                <svg width="18" height="18" viewBox="0 0 256 256"><use href="#ph-star"/></svg>
+                <svg width="18" height="18" viewBox="0 0 256 256"><use href="#ph-star"/></svg>
+                <svg width="18" height="18" viewBox="0 0 256 256"><use href="#ph-star"/></svg>
+                <svg width="18" height="18" viewBox="0 0 256 256"><use href="#ph-star"/></svg>
+                <svg width="18" height="18" viewBox="0 0 256 256"><use href="#ph-star"/></svg>
+              </div>
+              <div class="rating-count">Based on 47 Google Reviews</div>
+            </div>
+          </div>
+          <div class="google-logo-badge">
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="none">
+              <path d="M21.56 10.74H12v3.3h5.52C17.08 15.8 15.64 17 12 17a5.5 5.5 0 010-11c1.48 0 2.82.56 3.84 1.46l2.4-2.4A9 9 0 1012 21a9 9 0 009-9c0-.45-.04-.9-.12-1.26z" fill="#FFD600"/>
+            </svg>
+            Google Reviews
+          </div>
+        </div>
+        <div class="m-review-grid">
+          <div class="m-review-card">
+            <div class="m-stars"><svg width="13" height="13" viewBox="0 0 256 256"><use href="#ph-star"/></svg><svg width="13" height="13" viewBox="0 0 256 256"><use href="#ph-star"/></svg><svg width="13" height="13" viewBox="0 0 256 256"><use href="#ph-star"/></svg><svg width="13" height="13" viewBox="0 0 256 256"><use href="#ph-star"/></svg><svg width="13" height="13" viewBox="0 0 256 256"><use href="#ph-star"/></svg></div>
+            <div class="m-review-text">"Called Thursday morning, gas delivered by 6pm. Staff were friendly and the price was exactly as quoted. Will definitely use again."</div>
+            <div class="m-reviewer">Sandra M.</div>
+            <div class="m-reviewer-loc">Crowthorne, Midrand · 2 weeks ago</div>
+          </div>
+          <div class="m-review-card">
+            <div class="m-stars"><svg width="13" height="13" viewBox="0 0 256 256"><use href="#ph-star"/></svg><svg width="13" height="13" viewBox="0 0 256 256"><use href="#ph-star"/></svg><svg width="13" height="13" viewBox="0 0 256 256"><use href="#ph-star"/></svg><svg width="13" height="13" viewBox="0 0 256 256"><use href="#ph-star"/></svg><svg width="13" height="13" viewBox="0 0 256 256"><use href="#ph-star"/></svg></div>
+            <div class="m-review-text">"Sorted our restaurant's 48kg cylinder same day. Absolutely fantastic service, best in Midrand by far."</div>
+            <div class="m-reviewer">Sipho K.</div>
+            <div class="m-reviewer-loc">Kyalami · 1 month ago</div>
+          </div>
+          <div class="m-review-card">
+            <div class="m-stars"><svg width="13" height="13" viewBox="0 0 256 256"><use href="#ph-star"/></svg><svg width="13" height="13" viewBox="0 0 256 256"><use href="#ph-star"/></svg><svg width="13" height="13" viewBox="0 0 256 256"><use href="#ph-star"/></svg><svg width="13" height="13" viewBox="0 0 256 256"><use href="#ph-star"/></svg><svg width="13" height="13" viewBox="0 0 256 256"><use href="#ph-star"/></svg></div>
+            <div class="m-review-text">"CoC inspection done quickly and professionally. Got our compliance certificate same day. Great value."</div>
+            <div class="m-reviewer">Anele D.</div>
+            <div class="m-reviewer-loc">Midrand · 3 weeks ago</div>
+          </div>
+        </div>
+        <div style="text-align:center;margin-top:14px;">
+          <div class="btn btn-ghost btn-sm" style="margin:0 auto;">View all 47 reviews on Google</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="section">
+      <div class="section-title">Laravel Schema — google_reviews table</div>
+      <div style="background:var(--card);border:1px solid var(--border);border-radius:10px;padding:14px 16px;font-family:monospace;font-size:11.5px;line-height:1.8;color:var(--muted);">
+        <span style="color:var(--yellow);">Schema</span>::<span style="color:var(--orange);">create</span>(<span style="color:var(--green);">'google_reviews'</span>, function (Blueprint <span style="color:var(--text);">$table</span>) {<br>
+        &nbsp;&nbsp;<span style="color:var(--text);">$table</span>-><span style="color:var(--orange);">id</span>();<br>
+        &nbsp;&nbsp;<span style="color:var(--text);">$table</span>-><span style="color:var(--orange);">string</span>(<span style="color:var(--green);">'author_name'</span>);<br>
+        &nbsp;&nbsp;<span style="color:var(--text);">$table</span>-><span style="color:var(--orange);">string</span>(<span style="color:var(--green);">'profile_photo_url'</span>)-><span style="color:var(--orange);">nullable</span>();<br>
+        &nbsp;&nbsp;<span style="color:var(--text);">$table</span>-><span style="color:var(--orange);">tinyInteger</span>(<span style="color:var(--green);">'rating'</span>);<br>
+        &nbsp;&nbsp;<span style="color:var(--text);">$table</span>-><span style="color:var(--orange);">text</span>(<span style="color:var(--green);">'text'</span>);<br>
+        &nbsp;&nbsp;<span style="color:var(--text);">$table</span>-><span style="color:var(--orange);">string</span>(<span style="color:var(--green);">'relative_time_description'</span>);<br>
+        &nbsp;&nbsp;<span style="color:var(--text);">$table</span>-><span style="color:var(--orange);">timestamps</span>();<br>
+        });
+      </div>
+    </div>
+
+  </div>
+</div>
+
+<!-- ═══ HOME ═══ -->
+<div id="page-home" class="page">
+  <div class="page-header"><div class="page-title">Home Page</div><div class="page-badge">/ · Hero · Services · How-it-works · Reviews · Footer</div></div>
+  <div class="content">
+    <div class="mockup-frame">
+      <div class="mockup-bar"><div class="mockup-dots"><div class="dot" style="background:#ef4444;"></div><div class="dot" style="background:#eab308;"></div><div class="dot" style="background:#22c55e;"></div></div><div class="mockup-url">thegasboysmidrand.com</div></div>
+      <div class="m-nav">
+        <div class="m-logo">THE GAS BOYS</div>
+        <div class="m-nav-links">
+          <div class="m-nav-link active">Order Gas</div>
+          <div class="m-nav-link">Services</div>
+          <div class="m-nav-link">Shop</div>
+          <div class="m-nav-link">About</div>
+          <div class="m-nav-link">Contact</div>
+        </div>
+        <div class="m-nav-cta"><svg width="12" height="12" color="#000" viewBox="0 0 256 256"><use href="#ph-phone"/></svg> 011 468 1130</div>
+      </div>
+      <div class="m-hero">
+        <div class="m-tag"><svg width="10" height="10" color="var(--yellow)" viewBox="0 0 256 256"><use href="#ph-seal-check"/></svg> Midrand's Trusted LPG Supplier</div>
+        <div class="m-h1">FAST GAS.<br><span>YOUR WAY.</span></div>
+        <div class="m-sub">Deliveries, repairs, installations and compliance certificates. Drive-through or door-to-door.</div>
+        <div class="m-ctas">
+          <div class="btn btn-primary btn-lg"><svg width="16" height="16" viewBox="0 0 256 256"><use href="#ph-fire"/></svg> Order Gas Now</div>
+          <div class="btn btn-ghost btn-lg"><svg width="16" height="16" color="var(--muted)" viewBox="0 0 256 256"><use href="#ph-clipboard"/></svg> Book a Service</div>
+        </div>
+        <div style="display:flex;justify-content:center;gap:10px;margin-top:16px;flex-wrap:wrap;">
+          <div class="badge badge-y"><svg width="10" height="10" viewBox="0 0 256 256"><use href="#ph-seal-check"/></svg> LPG Certified</div>
+          <div class="badge badge-y"><svg width="10" height="10" viewBox="0 0 256 256"><use href="#ph-check-circle"/></svg> SANS Compliant</div>
+          <div class="badge badge-y">ORYX Gas</div>
+        </div>
+      </div>
+      <div class="m-trust">
+        <div class="m-trust-item"><div class="m-trust-val">9+</div><div class="m-trust-lbl">Cylinder Sizes</div></div>
+        <div class="m-trust-item"><div class="m-trust-val">R20.90</div><div class="m-trust-lbl">Per Kg (ORYX)</div></div>
+        <div class="m-trust-item"><div class="m-trust-val">5km</div><div class="m-trust-lbl">Delivery Radius</div></div>
+        <div class="m-trust-item"><div class="m-trust-val">4.8★</div><div class="m-trust-lbl">Google Rating</div></div>
+      </div>
+      <div style="padding:26px 24px;">
+        <div style="font-family:'Bebas Neue';font-size:28px;margin-bottom:16px;">WHAT WE <span style="color:var(--yellow);">DO</span></div>
+        <div class="m-svc-grid">
+          <div class="m-svc-card">
+            <div class="m-svc-icon"><svg width="18" height="18" color="var(--yellow)" viewBox="0 0 256 256"><use href="#ph-truck"/></svg></div>
+            <div class="m-svc-name">Gas Deliveries</div><div class="m-svc-desc">All sizes. Door-to-door or drive-through collection.</div>
+          </div>
+          <div class="m-svc-card">
+            <div class="m-svc-icon"><svg width="18" height="18" color="var(--yellow)" viewBox="0 0 256 256"><use href="#ph-wrench"/></svg></div>
+            <div class="m-svc-name">Gas Repairs</div><div class="m-svc-desc">Qualified techs. Appliances, pipes and regulators.</div>
+          </div>
+          <div class="m-svc-card">
+            <div class="m-svc-icon"><svg width="18" height="18" color="var(--yellow)" viewBox="0 0 256 256"><use href="#ph-gear"/></svg></div>
+            <div class="m-svc-name">Installations</div><div class="m-svc-desc">Residential, commercial and industrial installs.</div>
+          </div>
+          <div class="m-svc-card">
+            <div class="m-svc-icon"><svg width="18" height="18" color="var(--yellow)" viewBox="0 0 256 256"><use href="#ph-seal-check"/></svg></div>
+            <div class="m-svc-name">CoC Certificate</div><div class="m-svc-desc">Compliance certs and annual inspections.</div>
+          </div>
+        </div>
+      </div>
+      <div class="m-how">
+        <div style="font-family:'Bebas Neue';font-size:24px;margin-bottom:18px;">HOW IT <span style="color:var(--yellow);">WORKS</span></div>
+        <div class="m-how-steps">
+          <div class="m-step"><div class="m-step-num">1</div><div class="m-step-lbl">Pick Size</div><div class="m-step-sub">9kg, 19kg or 48kg</div></div>
+          <div class="m-step"><div class="m-step-num">2</div><div class="m-step-lbl">Enter Address</div><div class="m-step-sub">Delivery or collection</div></div>
+          <div class="m-step"><div class="m-step-num">3</div><div class="m-step-lbl">Confirm</div><div class="m-step-sub">Under 60 seconds</div></div>
+          <div class="m-step"><div class="m-step-num">4</div><div class="m-step-lbl">We Deliver</div><div class="m-step-sub">Pay on delivery</div></div>
+        </div>
+      </div>
+      <!-- Google Reviews on Homepage -->
+      <div style="padding:24px;">
+        <div style="font-family:'Bebas Neue';font-size:24px;margin-bottom:14px;">WHAT CUSTOMERS <span style="color:var(--yellow);">SAY</span></div>
+        <div class="m-review-grid">
+          <div class="m-review-card">
+            <div class="m-stars"><svg width="12" height="12" viewBox="0 0 256 256"><use href="#ph-star"/></svg><svg width="12" height="12" viewBox="0 0 256 256"><use href="#ph-star"/></svg><svg width="12" height="12" viewBox="0 0 256 256"><use href="#ph-star"/></svg><svg width="12" height="12" viewBox="0 0 256 256"><use href="#ph-star"/></svg><svg width="12" height="12" viewBox="0 0 256 256"><use href="#ph-star"/></svg></div>
+            <div class="m-review-text">"Called Thursday morning, gas delivered by 6pm. Staff were friendly and price was exactly as quoted."</div>
+            <div class="m-reviewer">Sandra M. <span style="color:var(--muted);font-weight:400;">· Crowthorne</span></div>
+          </div>
+          <div class="m-review-card">
+            <div class="m-stars"><svg width="12" height="12" viewBox="0 0 256 256"><use href="#ph-star"/></svg><svg width="12" height="12" viewBox="0 0 256 256"><use href="#ph-star"/></svg><svg width="12" height="12" viewBox="0 0 256 256"><use href="#ph-star"/></svg><svg width="12" height="12" viewBox="0 0 256 256"><use href="#ph-star"/></svg><svg width="12" height="12" viewBox="0 0 256 256"><use href="#ph-star"/></svg></div>
+            <div class="m-review-text">"Sorted our restaurant's 48kg cylinder same day. Best gas supplier in Midrand by far."</div>
+            <div class="m-reviewer">Sipho K. <span style="color:var(--muted);font-weight:400;">· Kyalami</span></div>
+          </div>
+          <div class="m-review-card">
+            <div class="m-stars"><svg width="12" height="12" viewBox="0 0 256 256"><use href="#ph-star"/></svg><svg width="12" height="12" viewBox="0 0 256 256"><use href="#ph-star"/></svg><svg width="12" height="12" viewBox="0 0 256 256"><use href="#ph-star"/></svg><svg width="12" height="12" viewBox="0 0 256 256"><use href="#ph-star"/></svg><svg width="12" height="12" viewBox="0 0 256 256"><use href="#ph-star"/></svg></div>
+            <div class="m-review-text">"CoC inspection done quickly and professionally. Compliance certificate same day. Great value."</div>
+            <div class="m-reviewer">Anele D. <span style="color:var(--muted);font-weight:400;">· Midrand</span></div>
+          </div>
+        </div>
+      </div>
+      <div style="background:var(--card);border-top:1px solid var(--border);padding:16px 24px;display:flex;justify-content:space-between;align-items:center;">
+        <div style="font-family:'Bebas Neue';font-size:20px;background:var(--grad);-webkit-background-clip:text;-webkit-text-fill-color:transparent;">THE GAS BOYS</div>
+        <div style="font-size:10.5px;color:var(--muted);">218 Whisken Rd, Crowthorne · 011 468 1130 · Mon–Fri 8am–5pm</div>
+        <div style="font-size:10px;color:var(--muted2);">© 2026 The Gas Boys Midrand</div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ═══ ORDER ═══ -->
+<div id="page-order" class="page">
+  <div class="page-header"><div class="page-title">Order Gas</div><div class="page-badge">/order · 3-step flow · POST /api/orders</div></div>
+  <div class="content">
+    <div class="mockup-frame">
+      <div class="mockup-bar"><div class="mockup-dots"><div class="dot" style="background:#ef4444;"></div><div class="dot" style="background:#eab308;"></div><div class="dot" style="background:#22c55e;"></div></div><div class="mockup-url">thegasboysmidrand.com/order</div></div>
+      <div class="m-nav"><div class="m-logo">THE GAS BOYS</div><div class="m-nav-cta"><svg width="12" height="12" color="#000" viewBox="0 0 256 256"><use href="#ph-phone"/></svg> 011 468 1130</div></div>
+      <div style="padding:28px 24px;">
+        <div style="font-family:'Bebas Neue';font-size:38px;margin-bottom:4px;">ORDER <span style="color:var(--yellow);">YOUR GAS</span></div>
+        <div style="font-size:11.5px;color:var(--muted);margin-bottom:22px;">ORYX Gas · R20.90/kg · Pay on delivery</div>
+        <div class="step-ind-row">
+          <div class="step-ind done"><svg width="11" height="11" color="var(--green)" viewBox="0 0 256 256" style="display:inline-block;vertical-align:middle;margin-right:4px;"><use href="#ph-check-circle"/></svg> Choose Size</div>
+          <div class="step-ind active">2. Delivery Details</div>
+          <div class="step-ind">3. Confirm</div>
+        </div>
+        <div style="display:flex;gap:24px;">
+          <div style="flex:1.4;">
+            <div style="font-size:13px;font-weight:600;margin-bottom:16px;">Selected: <span style="color:var(--yellow);">19kg Refill — R395.00</span></div>
+            <div class="input-group"><label class="input-label">Delivery Address</label><input class="input-field" placeholder="Start typing your address..." readonly></div>
+            <div style="display:grid;grid-template-columns:1fr 1fr;gap:12px;">
+              <div class="input-group"><label class="input-label">Full Name</label><input class="input-field" placeholder="Your name" readonly></div>
+              <div class="input-group"><label class="input-label">Cell Number</label><input class="input-field" placeholder="+27..." readonly></div>
+            </div>
+            <div class="input-group"><label class="input-label">Email</label><input class="input-field" placeholder="you@email.com" readonly></div>
+            <div class="btn btn-primary btn-lg" style="width:100%;justify-content:center;margin-top:4px;"><svg width="16" height="16" viewBox="0 0 256 256"><use href="#ph-arrow-right"/></svg> Continue to Review</div>
+            <div class="btn btn-whatsapp btn-lg" style="width:100%;justify-content:center;margin-top:10px;"><svg width="16" height="16" viewBox="0 0 256 256"><use href="#ph-chats"/></svg> Order via WhatsApp</div>
+          </div>
+          <div style="flex:1;">
+            <div class="glass-card" style="padding:18px;">
+              <div style="font-size:10.5px;font-weight:700;text-transform:uppercase;letter-spacing:1.5px;color:var(--muted);margin-bottom:14px;">Order Summary</div>
+              <div style="display:flex;justify-content:space-between;font-size:12.5px;color:var(--muted);margin-bottom:6px;"><span>19kg refill × 1</span><span>R395.00</span></div>
+              <div style="display:flex;justify-content:space-between;font-size:12.5px;color:var(--muted);margin-bottom:6px;"><span>Delivery</span><span style="color:var(--green);">FREE</span></div>
+              <div style="display:flex;justify-content:space-between;font-size:15px;font-weight:700;margin-top:10px;border-top:1px solid var(--border);padding-top:10px;"><span>Total</span><span style="color:var(--yellow);">R395.00</span></div>
+              <div style="margin-top:14px;background:var(--green-dim);border:1px solid rgba(34,197,94,0.25);border-radius:10px;padding:10px 12px;font-size:11px;color:var(--green);display:flex;align-items:center;gap:6px;"><svg width="14" height="14" color="var(--green)" viewBox="0 0 256 256"><use href="#ph-check-circle"/></svg> Pay on delivery — cash or EFT</div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ═══ SERVICES ═══ -->
+<div id="page-services" class="page">
+  <div class="page-header"><div class="page-title">Services</div><div class="page-badge">/services · 4 sub-pages</div></div>
+  <div class="content">
+    <div style="display:grid;grid-template-columns:1fr 1fr;gap:14px;">
+      <div class="wire"><div class="gbar"></div><div style="display:flex;align-items:center;gap:8px;margin-bottom:6px;"><svg width="16" height="16" color="var(--yellow)" viewBox="0 0 256 256"><use href="#ph-truck"/></svg><div style="font-size:13px;font-weight:600;">Gas Deliveries — /services/deliveries</div></div><div style="font-size:12px;color:var(--muted);">Cylinder sizes, coverage map, same-day notice, drive-through option, price callout.</div></div>
+      <div class="wire"><div class="gbar"></div><div style="display:flex;align-items:center;gap:8px;margin-bottom:6px;"><svg width="16" height="16" color="var(--yellow)" viewBox="0 0 256 256"><use href="#ph-wrench"/></svg><div style="font-size:13px;font-weight:600;">Gas Repairs — /services/repairs</div></div><div style="font-size:12px;color:var(--muted);">What we fix, response time, qualified tech badges, Book a Repair CTA.</div></div>
+      <div class="wire"><div class="gbar"></div><div style="display:flex;align-items:center;gap:8px;margin-bottom:6px;"><svg width="16" height="16" color="var(--yellow)" viewBox="0 0 256 256"><use href="#ph-gear"/></svg><div style="font-size:13px;font-weight:600;">Installations — /services/installations</div></div><div style="font-size:12px;color:var(--muted);">Residential vs commercial vs industrial tabs. SANS compliance, approval handling, quote form.</div></div>
+      <div class="wire"><div class="gbar"></div><div style="display:flex;align-items:center;gap:8px;margin-bottom:6px;"><svg width="16" height="16" color="var(--yellow)" viewBox="0 0 256 256"><use href="#ph-seal-check"/></svg><div style="font-size:13px;font-weight:600;">CoC Certificate — /services/coc</div></div><div style="font-size:12px;color:var(--muted);">What is a CoC, when you need one, cost guide, book inspection form.</div></div>
+    </div>
+  </div>
+</div>
+
+<!-- ═══ BOOK ═══ -->
+<div id="page-book" class="page">
+  <div class="page-header"><div class="page-title">Book a Service</div><div class="page-badge">/book · POST /api/bookings</div></div>
+  <div class="content">
+    <div class="mockup-frame">
+      <div class="mockup-bar"><div class="mockup-dots"><div class="dot" style="background:#ef4444;"></div><div class="dot" style="background:#eab308;"></div><div class="dot" style="background:#22c55e;"></div></div><div class="mockup-url">thegasboysmidrand.com/book</div></div>
+      <div class="m-nav"><div class="m-logo">THE GAS BOYS</div><div class="m-nav-cta"><svg width="12" height="12" color="#000" viewBox="0 0 256 256"><use href="#ph-phone"/></svg> 011 468 1130</div></div>
+      <div style="padding:28px 24px;display:flex;gap:24px;">
+        <div style="flex:1.3;">
+          <div style="font-family:'Bebas Neue';font-size:36px;margin-bottom:16px;">BOOK A <span style="color:var(--yellow);">SERVICE</span></div>
+          <div class="input-group"><label class="input-label">Service Type</label><select class="input-field"><option>Gas Repair</option><option>Installation</option><option>CoC Certificate</option><option>Annual Inspection</option></select></div>
+          <div style="display:grid;grid-template-columns:1fr 1fr;gap:12px;">
+            <div class="input-group"><label class="input-label">Preferred Date</label><input class="input-field" type="date" readonly></div>
+            <div class="input-group"><label class="input-label">Time</label><select class="input-field"><option>Morning (8–12)</option><option>Afternoon (12–5)</option></select></div>
+          </div>
+          <div style="display:grid;grid-template-columns:1fr 1fr;gap:12px;">
+            <div class="input-group"><label class="input-label">Full Name</label><input class="input-field" placeholder="Your name" readonly></div>
+            <div class="input-group"><label class="input-label">Phone</label><input class="input-field" placeholder="+27..." readonly></div>
+          </div>
+          <div class="input-group"><label class="input-label">Address</label><input class="input-field" placeholder="Site address" readonly></div>
+          <div class="input-group"><label class="input-label">Notes</label><textarea class="input-field" rows="3" placeholder="Describe the issue or job..." readonly></textarea></div>
+          <div class="btn btn-primary btn-lg" style="width:100%;justify-content:center;"><svg width="16" height="16" viewBox="0 0 256 256"><use href="#ph-clipboard"/></svg> Confirm Booking</div>
+        </div>
+        <div style="flex:.8;">
+          <div class="glass-card" style="padding:18px;">
+            <div style="font-size:12px;font-weight:600;color:var(--yellow);margin-bottom:14px;">What to Expect</div>
+            <div style="display:flex;flex-direction:column;gap:12px;margin-bottom:16px;">
+              <div style="display:flex;gap:10px;"><div style="width:24px;height:24px;border-radius:50%;background:var(--yellow);color:#000;font-size:11px;font-weight:700;display:flex;align-items:center;justify-content:center;flex-shrink:0;">1</div><div><div style="font-size:12px;font-weight:600;">Confirm via SMS</div><div style="font-size:11px;color:var(--muted);">Within 2 hours</div></div></div>
+              <div style="display:flex;gap:10px;"><div style="width:24px;height:24px;border-radius:50%;background:var(--yellow);color:#000;font-size:11px;font-weight:700;display:flex;align-items:center;justify-content:center;flex-shrink:0;">2</div><div><div style="font-size:12px;font-weight:600;">Technician arrives</div><div style="font-size:11px;color:var(--muted);">At your chosen time</div></div></div>
+              <div style="display:flex;gap:10px;"><div style="width:24px;height:24px;border-radius:50%;background:var(--yellow);color:#000;font-size:11px;font-weight:700;display:flex;align-items:center;justify-content:center;flex-shrink:0;">3</div><div><div style="font-size:12px;font-weight:600;">Job done, CoC issued</div><div style="font-size:11px;color:var(--muted);">Same day for most jobs</div></div></div>
+            </div>
+            <div style="border-top:1px solid var(--border);padding-top:14px;display:flex;flex-direction:column;gap:8px;">
+              <div class="btn btn-ghost btn-sm" style="justify-content:center;"><svg width="13" height="13" color="var(--muted)" viewBox="0 0 256 256"><use href="#ph-phone"/></svg> 011 468 1130</div>
+              <div class="btn btn-whatsapp btn-sm" style="justify-content:center;"><svg width="13" height="13" viewBox="0 0 256 256"><use href="#ph-chats"/></svg> WhatsApp Us</div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ═══ SHOP ═══ -->
+<div id="page-shop" class="page">
+  <div class="page-header"><div class="page-title">Shop</div><div class="page-badge">/shop · GET /api/products · Gas, Appliances, Accessories</div></div>
+  <div class="content">
+    <div class="mockup-frame">
+      <div class="mockup-bar"><div class="mockup-dots"><div class="dot" style="background:#ef4444;"></div><div class="dot" style="background:#eab308;"></div><div class="dot" style="background:#22c55e;"></div></div><div class="mockup-url">thegasboysmidrand.com/shop</div></div>
+      <div class="m-nav"><div class="m-logo">THE GAS BOYS</div><div class="m-nav-cta"><svg width="12" height="12" color="#000" viewBox="0 0 256 256"><use href="#ph-phone"/></svg> 011 468 1130</div></div>
+      <div style="padding:20px 24px;display:flex;gap:20px;">
+        <div style="width:140px;flex-shrink:0;">
+          <div style="font-size:10px;text-transform:uppercase;letter-spacing:2px;color:var(--muted);margin-bottom:12px;">Categories</div>
+          <div style="display:flex;flex-direction:column;gap:4px;">
+            <div style="padding:7px 10px;background:var(--yellow-dim);border:1px solid rgba(255,214,0,0.3);border-radius:7px;font-size:12px;color:var(--yellow);font-weight:600;">All Products</div>
+            <div style="padding:7px 10px;font-size:12px;color:var(--muted);">LP Gas Cylinders</div>
+            <div style="padding:7px 10px;font-size:12px;color:var(--muted);">Gas Appliances</div>
+            <div style="padding:7px 10px;font-size:12px;color:var(--muted);">Regulators</div>
+            <div style="padding:7px 10px;font-size:12px;color:var(--muted);">Hoses &amp; Fittings</div>
+          </div>
+        </div>
+        <div style="flex:1;">
+          <div style="display:grid;grid-template-columns:repeat(3,1fr);gap:12px;">
+            <div style="background:var(--card);border:1px solid var(--border);border-radius:12px;overflow:hidden;">
+              <div style="height:88px;background:linear-gradient(135deg,#1a1a1a,#252525);display:flex;align-items:center;justify-content:center;"><svg width="48" height="48" color="rgba(255,214,0,0.3)" viewBox="0 0 256 256"><use href="#ph-package"/></svg></div>
+              <div style="padding:12px;"><div style="font-size:12px;font-weight:600;margin-bottom:2px;">9 kg Refill</div><div style="font-size:10.5px;color:var(--muted);margin-bottom:7px;">ORYX Gas</div><div style="font-size:18px;font-weight:700;color:var(--yellow);margin-bottom:9px;">R180.00</div><div class="btn btn-primary btn-sm" style="width:100%;justify-content:center;">Order Now</div></div>
+            </div>
+            <div style="background:var(--card);border:2px solid var(--yellow);border-radius:12px;overflow:hidden;box-shadow:0 0 20px rgba(255,214,0,0.1);">
+              <div style="background:var(--yellow);font-size:9.5px;font-weight:700;color:#000;text-align:center;padding:4px;letter-spacing:1px;">MOST POPULAR</div>
+              <div style="height:80px;background:linear-gradient(135deg,#1a1a1a,#252525);display:flex;align-items:center;justify-content:center;"><svg width="48" height="48" color="rgba(255,214,0,0.4)" viewBox="0 0 256 256"><use href="#ph-package"/></svg></div>
+              <div style="padding:12px;"><div style="font-size:12px;font-weight:600;margin-bottom:2px;">19 kg Refill</div><div style="font-size:10.5px;color:var(--muted);margin-bottom:7px;">ORYX Gas</div><div style="font-size:18px;font-weight:700;color:var(--yellow);margin-bottom:9px;">R395.00</div><div class="btn btn-primary btn-sm" style="width:100%;justify-content:center;">Order Now</div></div>
+            </div>
+            <div style="background:var(--card);border:1px solid var(--border);border-radius:12px;overflow:hidden;">
+              <div style="height:88px;background:linear-gradient(135deg,#1a1a1a,#252525);display:flex;align-items:center;justify-content:center;"><svg width="48" height="48" color="rgba(255,107,0,0.3)" viewBox="0 0 256 256"><use href="#ph-package"/></svg></div>
+              <div style="padding:12px;"><div style="font-size:12px;font-weight:600;margin-bottom:2px;">48 kg Refill</div><div style="font-size:10.5px;color:var(--muted);margin-bottom:7px;">ORYX Gas · Commercial</div><div style="font-size:18px;font-weight:700;color:var(--yellow);margin-bottom:9px;">R970.00</div><div class="btn btn-primary btn-sm" style="width:100%;justify-content:center;">Order Now</div></div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ═══ QUOTE ═══ -->
+<div id="page-quote" class="page">
+  <div class="page-header"><div class="page-title">Bulk Quote</div><div class="page-badge">/quote · B2B · POST /api/quotes</div></div>
+  <div class="content">
+    <div class="mockup-frame">
+      <div class="mockup-bar"><div class="mockup-dots"><div class="dot" style="background:#ef4444;"></div><div class="dot" style="background:#eab308;"></div><div class="dot" style="background:#22c55e;"></div></div><div class="mockup-url">thegasboysmidrand.com/quote</div></div>
+      <div class="m-nav"><div class="m-logo">THE GAS BOYS</div><div class="m-nav-cta"><svg width="12" height="12" color="#000" viewBox="0 0 256 256"><use href="#ph-phone"/></svg> 011 468 1130</div></div>
+      <div style="padding:28px 24px;">
+        <div style="font-family:'Bebas Neue';font-size:36px;margin-bottom:4px;">BULK GAS <span style="color:var(--yellow);">QUOTE</span></div>
+        <div style="font-size:12px;color:var(--muted);margin-bottom:22px;">For restaurants, factories, commercial buildings and industrial sites across Gauteng.</div>
+        <div style="display:grid;grid-template-columns:1fr 1fr;gap:14px;">
+          <div class="input-group"><label class="input-label">Company Name</label><input class="input-field" placeholder="Your business name" readonly></div>
+          <div class="input-group"><label class="input-label">Contact Person</label><input class="input-field" placeholder="Name" readonly></div>
+          <div class="input-group"><label class="input-label">Phone</label><input class="input-field" placeholder="+27..." readonly></div>
+          <div class="input-group"><label class="input-label">Email</label><input class="input-field" placeholder="you@company.co.za" readonly></div>
+          <div class="input-group"><label class="input-label">Gas Type</label><select class="input-field"><option>LPG (Propane)</option><option>Butane</option></select></div>
+          <div class="input-group"><label class="input-label">Monthly Volume</label><select class="input-field"><option>Under 100 kg</option><option>100–500 kg</option><option>500 kg – 1 ton</option><option>Over 1 ton</option></select></div>
+          <div class="input-group" style="grid-column:1/-1;"><label class="input-label">Site Address</label><input class="input-field" placeholder="Full delivery address" readonly></div>
+          <div class="input-group" style="grid-column:1/-1;"><label class="input-label">Additional Notes</label><textarea class="input-field" rows="3" placeholder="Tell us about your setup, usage and schedule..." readonly></textarea></div>
+        </div>
+        <div class="btn btn-primary btn-lg" style="justify-content:center;margin-top:4px;"><svg width="16" height="16" viewBox="0 0 256 256"><use href="#ph-arrow-right"/></svg> Submit Quote Request</div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ═══ ABOUT ═══ -->
+<div id="page-about" class="page">
+  <div class="page-header"><div class="page-title">About Us</div><div class="page-badge">/about · Story · Credentials · Team</div></div>
+  <div class="content">
+    <div class="spec-grid">
+      <div class="spec-card"><div class="spec-icon"><svg width="22" height="22" color="var(--yellow)" viewBox="0 0 256 256"><use href="#ph-seal-check"/></svg></div><div class="spec-title">LPG Safety Association</div><div class="spec-val">Certified member. All cylinders approved and 100% safe.</div></div>
+      <div class="spec-card"><div class="spec-icon"><svg width="22" height="22" color="var(--yellow)" viewBox="0 0 256 256"><use href="#ph-clipboard"/></svg></div><div class="spec-title">SANS Compliant</div><div class="spec-val">We comply with all applicable regulations and SANS 10087 codes.</div></div>
+      <div class="spec-card"><div class="spec-icon"><svg width="22" height="22" color="var(--yellow)" viewBox="0 0 256 256"><use href="#ph-truck"/></svg></div><div class="spec-title">Direct from Refineries</div><div class="spec-val">ORYX Gas purchased straight from refineries — no middlemen.</div></div>
+      <div class="spec-card"><div class="spec-icon"><svg width="22" height="22" color="var(--yellow)" viewBox="0 0 256 256"><use href="#ph-users"/></svg></div><div class="spec-title">All Market Segments</div><div class="spec-val">Residential, commercial and industrial clients served.</div></div>
+      <div class="spec-card"><div class="spec-icon"><svg width="22" height="22" color="var(--yellow)" viewBox="0 0 256 256"><use href="#ph-storefront"/></svg></div><div class="spec-title">Drive-Through Facility</div><div class="spec-val">Visit us at 218 Whisken Road, Crowthorne — quick in-and-out.</div></div>
+      <div class="spec-card"><div class="spec-icon"><svg width="22" height="22" color="var(--yellow)" viewBox="0 0 256 256"><use href="#ph-wrench"/></svg></div><div class="spec-title">Qualified Installers</div><div class="spec-val">Team trained on fire dept rules and all authority regulations.</div></div>
+    </div>
+  </div>
+</div>
+
+<!-- ═══ CONTACT ═══ -->
+<div id="page-contact" class="page">
+  <div class="page-header"><div class="page-title">Contact</div><div class="page-badge">/contact · Map · Hours · Form · POST /api/contact</div></div>
+  <div class="content">
+    <div class="mockup-frame">
+      <div class="mockup-bar"><div class="mockup-dots"><div class="dot" style="background:#ef4444;"></div><div class="dot" style="background:#eab308;"></div><div class="dot" style="background:#22c55e;"></div></div><div class="mockup-url">thegasboysmidrand.com/contact</div></div>
+      <div class="m-nav"><div class="m-logo">THE GAS BOYS</div><div class="m-nav-cta"><svg width="12" height="12" color="#000" viewBox="0 0 256 256"><use href="#ph-phone"/></svg> 011 468 1130</div></div>
+      <div style="padding:28px 24px;display:flex;gap:24px;">
+        <div style="flex:1;">
+          <div style="font-family:'Bebas Neue';font-size:36px;margin-bottom:20px;">GET IN <span style="color:var(--yellow);">TOUCH</span></div>
+          <div style="display:flex;flex-direction:column;gap:14px;margin-bottom:18px;">
+            <div style="display:flex;gap:12px;align-items:flex-start;"><div style="width:36px;height:36px;border-radius:10px;background:var(--yellow-dim);border:1px solid rgba(255,214,0,0.2);display:flex;align-items:center;justify-content:center;flex-shrink:0;"><svg width="18" height="18" color="var(--yellow)" viewBox="0 0 256 256"><use href="#ph-map-pin"/></svg></div><div><div style="font-size:12px;font-weight:600;margin-bottom:2px;">Address</div><div style="font-size:11.5px;color:var(--muted);">218 Whisken Road, Crowthorne, Midrand, 1686</div></div></div>
+            <div style="display:flex;gap:12px;align-items:flex-start;"><div style="width:36px;height:36px;border-radius:10px;background:var(--yellow-dim);border:1px solid rgba(255,214,0,0.2);display:flex;align-items:center;justify-content:center;flex-shrink:0;"><svg width="18" height="18" color="var(--yellow)" viewBox="0 0 256 256"><use href="#ph-phone"/></svg></div><div><div style="font-size:12px;font-weight:600;margin-bottom:2px;">Phone</div><div style="font-size:11.5px;color:var(--muted);">011 468 1130 · 064 026 3510</div></div></div>
+            <div style="display:flex;gap:12px;align-items:flex-start;"><div style="width:36px;height:36px;border-radius:10px;background:var(--yellow-dim);border:1px solid rgba(255,214,0,0.2);display:flex;align-items:center;justify-content:center;flex-shrink:0;"><svg width="18" height="18" color="var(--yellow)" viewBox="0 0 256 256"><use href="#ph-clock"/></svg></div><div><div style="font-size:12px;font-weight:600;margin-bottom:2px;">Hours</div><div style="font-size:11.5px;color:var(--muted);">Mon–Fri: 8am – 5pm · Sat: TBC · Sun: Closed</div></div></div>
+          </div>
+          <div style="background:var(--card);border:1px solid var(--border);border-radius:12px;height:110px;display:flex;align-items:center;justify-content:center;gap:8px;color:var(--muted);font-size:12px;"><svg width="18" height="18" color="var(--muted)" viewBox="0 0 256 256"><use href="#ph-map-pin"/></svg> Google Map Embed — Crowthorne, Midrand</div>
+        </div>
+        <div style="flex:1;">
+          <div style="font-size:14px;font-weight:600;margin-bottom:16px;">Send a Message</div>
+          <div class="input-group"><label class="input-label">Name</label><input class="input-field" placeholder="Your name" readonly></div>
+          <div class="input-group"><label class="input-label">Phone / Email</label><input class="input-field" placeholder="How should we reach you?" readonly></div>
+          <div class="input-group"><label class="input-label">Subject</label><select class="input-field"><option>Gas Delivery</option><option>Repair Booking</option><option>Installation Quote</option><option>CoC Certificate</option></select></div>
+          <div class="input-group"><label class="input-label">Message</label><textarea class="input-field" rows="3" placeholder="How can we help?" readonly></textarea></div>
+          <div class="btn btn-primary" style="width:100%;justify-content:center;margin-bottom:8px;"><svg width="15" height="15" viewBox="0 0 256 256"><use href="#ph-envelope"/></svg> Send Message</div>
+          <div class="btn btn-whatsapp" style="width:100%;justify-content:center;"><svg width="15" height="15" viewBox="0 0 256 256"><use href="#ph-chats"/></svg> Chat on WhatsApp</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ═══ ADMIN ═══ -->
+<div id="page-admin" class="page">
+  <div class="page-header"><div class="page-title">Admin Dashboard</div><div class="page-badge">/admin · Laravel Sanctum · Protected</div></div>
+  <div class="content">
+    <div class="admin-grid">
+      <div class="admin-stat"><div class="admin-stat-icon"><svg width="18" height="18" color="var(--yellow)" viewBox="0 0 256 256"><use href="#ph-truck"/></svg></div><div class="admin-stat-val">12</div><div class="admin-stat-lbl">Orders Today</div></div>
+      <div class="admin-stat"><div class="admin-stat-icon"><svg width="18" height="18" color="var(--yellow)" viewBox="0 0 256 256"><use href="#ph-clipboard"/></svg></div><div class="admin-stat-val">3</div><div class="admin-stat-lbl">Pending Bookings</div></div>
+      <div class="admin-stat"><div class="admin-stat-icon"><svg width="18" height="18" color="var(--yellow)" viewBox="0 0 256 256"><use href="#ph-chart-bar"/></svg></div><div class="admin-stat-val">5</div><div class="admin-stat-lbl">Quote Requests</div></div>
+      <div class="admin-stat" style="border-color:rgba(34,197,94,0.3);"><div class="admin-stat-icon" style="background:var(--green-dim);"><svg width="18" height="18" color="var(--green)" viewBox="0 0 256 256"><use href="#ph-chart-bar"/></svg></div><div class="admin-stat-val" style="color:var(--green);">R8,420</div><div class="admin-stat-lbl">Revenue Today</div></div>
+    </div>
+    <div style="display:flex;gap:8px;margin-bottom:16px;">
+      <div class="btn btn-primary btn-sm"><svg width="12" height="12" viewBox="0 0 256 256"><use href="#ph-truck"/></svg> Orders</div>
+      <div class="btn btn-ghost btn-sm"><svg width="12" height="12" color="var(--muted)" viewBox="0 0 256 256"><use href="#ph-clipboard"/></svg> Bookings</div>
+      <div class="btn btn-ghost btn-sm"><svg width="12" height="12" color="var(--muted)" viewBox="0 0 256 256"><use href="#ph-chart-bar"/></svg> Quotes</div>
+      <div class="btn btn-ghost btn-sm"><svg width="12" height="12" color="var(--muted)" viewBox="0 0 256 256"><use href="#ph-storefront"/></svg> Products</div>
+    </div>
+    <div style="background:var(--card);border:1px solid var(--border);border-radius:14px;overflow:hidden;">
+      <div style="padding:14px 18px;border-bottom:1px solid var(--border);display:flex;justify-content:space-between;align-items:center;">
+        <div style="font-size:13px;font-weight:600;">Recent Orders</div>
+        <div class="btn btn-ghost btn-sm">Export CSV</div>
+      </div>
+      <table style="width:100%;border-collapse:collapse;font-size:12px;">
+        <thead><tr style="background:var(--card2);"><th style="padding:10px 18px;text-align:left;color:var(--muted);font-weight:500;font-size:10.5px;">#</th><th style="padding:10px 18px;text-align:left;color:var(--muted);font-weight:500;font-size:10.5px;">Customer</th><th style="padding:10px 18px;text-align:left;color:var(--muted);font-weight:500;font-size:10.5px;">Cylinder</th><th style="padding:10px 18px;text-align:left;color:var(--muted);font-weight:500;font-size:10.5px;">Total</th><th style="padding:10px 18px;text-align:left;color:var(--muted);font-weight:500;font-size:10.5px;">Status</th></tr></thead>
+        <tbody>
+          <tr style="border-bottom:1px solid var(--border);"><td style="padding:11px 18px;color:var(--muted2);">#1024</td><td style="padding:11px 18px;">Sandra M.</td><td style="padding:11px 18px;">19 kg × 1</td><td style="padding:11px 18px;color:var(--yellow);font-weight:700;">R395</td><td style="padding:11px 18px;"><div class="badge badge-o"><svg width="9" height="9" viewBox="0 0 256 256"><use href="#ph-truck"/></svg> En Route</div></td></tr>
+          <tr style="border-bottom:1px solid var(--border);"><td style="padding:11px 18px;color:var(--muted2);">#1023</td><td style="padding:11px 18px;">Sipho K.</td><td style="padding:11px 18px;">48 kg × 1</td><td style="padding:11px 18px;color:var(--yellow);font-weight:700;">R970</td><td style="padding:11px 18px;"><div class="badge badge-g"><svg width="9" height="9" viewBox="0 0 256 256"><use href="#ph-check-circle"/></svg> Delivered</div></td></tr>
+          <tr><td style="padding:11px 18px;color:var(--muted2);">#1022</td><td style="padding:11px 18px;">Anele D.</td><td style="padding:11px 18px;">9 kg × 2</td><td style="padding:11px 18px;color:var(--yellow);font-weight:700;">R360</td><td style="padding:11px 18px;"><div class="badge badge-m">Pending</div></td></tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+</div>
+
+</div><!-- /main -->
+
+<script>
+function show(id, el) {
+  document.querySelectorAll('.page').forEach(p => p.classList.remove('active'));
+  document.querySelectorAll('.nav-item').forEach(n => n.classList.remove('active'));
+  document.getElementById('page-' + id).classList.add('active');
+  el.classList.add('active');
+  document.querySelector('.main').scrollTo(0, 0);
+}
+</script>
+</body>
+</html>
