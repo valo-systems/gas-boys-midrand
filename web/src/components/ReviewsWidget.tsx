@@ -35,7 +35,7 @@ export default function ReviewsWidget({ limit = 3 }: { limit?: number }) {
             <p className="text-sm text-gas-text2 leading-relaxed mb-4 italic">"{r.text}"</p>
             <div>
               <div className="text-sm font-semibold">{r.author}</div>
-              <div className="text-xs text-gas-muted">{r.location} · {r.timeAgo}</div>
+              <div className="text-xs text-gas-muted">Google Review · {r.timeAgo}</div>
             </div>
           </div>
         ))}

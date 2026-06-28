@@ -81,15 +81,15 @@ export const productCategories = ['All', 'Cylinders', 'Appliances', 'Regulators'
 
 // ─── Reviews ───────────────────────────────────────────────────────────────
 export const reviews = [
-  { id: 1, author: 'Sandra M.', location: 'Crowthorne', rating: 5, text: 'Called Thursday morning and had gas delivered by 6pm the same day. Staff were incredibly friendly and the price was exactly as quoted. Will definitely use again!', timeAgo: '2 weeks ago' },
-  { id: 2, author: 'Sipho K.', location: 'Kyalami', rating: 5, text: "Sorted our restaurant's 48kg cylinder same day when our usual supplier let us down. Absolutely fantastic service — best LPG supplier in Midrand by far.", timeAgo: '1 month ago' },
-  { id: 3, author: 'Anele D.', location: 'Midrand', rating: 5, text: 'CoC inspection done quickly and professionally. Got our compliance certificate the same day. Great value and the technician was very knowledgeable.', timeAgo: '3 weeks ago' },
-  { id: 4, author: 'Marco V.', location: 'Carlswald', rating: 5, text: 'Drive-through collection is super quick — in and out in under 10 minutes. No waiting around. Great prices and friendly staff every time.', timeAgo: '1 week ago' },
-  { id: 5, author: 'Fatima A.', location: 'Halfway House', rating: 4, text: 'Delivery was a bit delayed but the team kept me updated via WhatsApp which I appreciated. Gas quality is great and pricing is very competitive.', timeAgo: '2 months ago' },
-  { id: 6, author: 'Ryan P.', location: 'Vorna Valley', rating: 5, text: 'Had a gas leak at 4pm and they came out to repair it that evening. Lifesavers! Professional, quick and reasonably priced. Highly recommended.', timeAgo: '3 months ago' },
+  { id: 1, author: 'Lebo Morake', rating: 5, text: 'Professionalism is under the statement, from enquiries to installation. Assisted by the lady called Tsaki, she was so effective and efficient, the technicians are so clean, no cleanups after their job. Thank you to the Gas Boys Midrand team. Keep up the great service.', timeAgo: '2 days ago' },
+  { id: 2, author: 'Boca AK', rating: 5, text: 'This is the best gas refill place in Midrand — friendly staff, quick services and they are hands on. Keep the momentum Gas Boys!', timeAgo: '10 months ago' },
+  { id: 3, author: 'Esido Mushwana', rating: 5, text: 'Excellent service by Tsakani and her colleague. I bought a pigtail pipe and they came to install at my house. Their prices are very good. This is my place to be for any gas related services.', timeAgo: '8 months ago' },
+  { id: 4, author: 'Avi Ramdhin', rating: 5, text: 'Called the office on a Thursday morning and by 6pm I had my gas delivered. Great service and really customer centric. Well done and keep it up!', timeAgo: '3 years ago' },
+  { id: 5, author: 'Tyrell Govender', rating: 5, text: 'Efficient service and went the extra mile to stay open after hours to refill.', timeAgo: '9 months ago' },
+  { id: 6, author: 'Michelle Naicker', rating: 5, text: 'Very efficient, reliable and professional service. Robert and his team are very helpful and giving good customer service with great advice.', timeAgo: '3 years ago' },
 ]
 
-export const overallRating = { average: 4.8, total: 47 }
+export const overallRating = { average: 4.0, total: 139 }
 
 // ─── Admin mock data ────────────────────────────────────────────────────────
 export const adminOrders = [
