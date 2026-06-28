@@ -57,7 +57,7 @@ export const services = [
 
 // ─── Products / Shop ───────────────────────────────────────────────────────
 const IMG = {
-  cylinder: '/src/assets/cylinder.png',
+  cylinder: '/cylinder.png',
   single:   'https://images.unsplash.com/photo-1743612828221-7bdc71a8107a?w=400&h=300&fit=crop&auto=format',
   double:   'https://images.unsplash.com/photo-1563729527945-2cc08fee1613?w=400&h=300&fit=crop&auto=format',
   regulator:'https://images.unsplash.com/photo-1510467181625-c419e443bdfa?w=400&h=300&fit=crop&auto=format',
