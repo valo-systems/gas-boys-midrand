@@ -1,6 +1,7 @@
 import { Link } from 'react-router-dom'
 import { Truck, Wrench, Gear, SealCheck, Fire, ArrowRight, ChatsCircle, CheckCircle } from '@phosphor-icons/react'
 import ReviewsWidget from '../components/ReviewsWidget'
+import { overallRating } from '../data/mock'
 
 const services = [
   { icon: Truck, label: 'Gas Deliveries', desc: 'All sizes. Door-to-door or drive-through collection.', to: '/services/deliveries' },
@@ -76,7 +77,7 @@ export default function Home() {
       {/* ── Trust bar ── */}
       <div className="border-y border-gas-border bg-gas-surface">
         <div className="max-w-7xl mx-auto px-6 md:px-12 py-4 grid grid-cols-2 md:grid-cols-4 gap-4">
-          {[['9+', 'Cylinder Sizes'], ['R20.90', 'Per Kg — ORYX'], ['5 km', 'Delivery Radius'], ['4.8★', 'Google Rating']].map(([v, l]) => (
+          {[['9+', 'Cylinder Sizes'], ['R20.90', 'Per Kg — ORYX'], ['5 km', 'Delivery Radius'], [`${overallRating.average}★`, 'Google Rating']].map(([v, l]) => (
             <div key={l} className="text-center py-2">
               <div className="font-display text-2xl text-yellow-500">{v}</div>
               <div className="text-xs text-gas-muted uppercase tracking-widest mt-0.5">{l}</div>

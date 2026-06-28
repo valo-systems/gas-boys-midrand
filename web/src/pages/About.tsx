@@ -1,5 +1,5 @@
 import { Truck, Wrench, Gear, SealCheck, Users, Storefront, Clipboard } from '@phosphor-icons/react'
-import { credentials } from '../data/mock'
+import { credentials, overallRating } from '../data/mock'
 import ReviewsWidget from '../components/ReviewsWidget'
 import { Link } from 'react-router-dom'
 
@@ -27,7 +27,7 @@ export default function About() {
             </div>
           </div>
           <div className="grid grid-cols-2 gap-4">
-            {[['9+', 'Cylinder Sizes'], ['48kg', 'Largest Cylinder'], ['47+', 'Google Reviews'], ['4.8★', 'Average Rating']].map(([v, l]) => (
+            {[['9+', 'Cylinder Sizes'], ['48kg', 'Largest Cylinder'], [`${overallRating.total}+`, 'Google Reviews'], [`${overallRating.average}★`, 'Average Rating']].map(([v, l]) => (
               <div key={l} className="card p-6 text-center">
                 <div className="font-display text-5xl text-yellow-500 mb-1">{v}</div>
                 <div className="text-sm text-gas-muted">{l}</div>
