@@ -1,11 +1,31 @@
 import { useState } from 'react'
 import { CheckCircle, ChatsCircle } from '@phosphor-icons/react'
 import { contactInfo } from '../data/mock'
+import { useQuoteStore } from '../stores/useQuoteStore'
 
 export default function Quote() {
   const [submitted, setSubmitted] = useState(false)
+  const [quoteRef, setQuoteRef] = useState('')
   const [form, setForm] = useState({ company: '', contact: '', phone: '', email: '', gasType: 'LPG (Propane)', volume: '100–500 kg/month', address: '', notes: '' })
   const update = (k: string, v: string) => setForm(f => ({ ...f, [k]: v }))
+
+  const addQuote = useQuoteStore(s => s.addQuote)
+
+  function handleSubmit() {
+    if (!form.company || !form.contact || !form.phone || !form.email) return
+    const ref = addQuote({
+      company: form.company,
+      contact: form.contact,
+      phone: form.phone,
+      email: form.email,
+      gasType: form.gasType,
+      volume: form.volume,
+      address: form.address,
+      requirements: form.notes,
+    })
+    setQuoteRef(ref)
+    setSubmitted(true)
+  }
 
   if (submitted) {
     return (
@@ -16,8 +36,8 @@ export default function Quote() {
           </div>
           <h2 className="font-display text-5xl mb-3">QUOTE <span className="text-yellow-500">RECEIVED!</span></h2>
           <p className="text-gas-muted mb-2">We'll review your requirements and send a personalised quote within 24 hours.</p>
-          <p className="text-sm text-gas-muted mb-8">Ref: <span className="text-yellow-500 font-semibold">Q-{Math.floor(Math.random()*900)+100}</span></p>
-          <button onClick={() => setSubmitted(false)} className="btn-ghost">Submit another</button>
+          <p className="text-sm text-gas-muted mb-8">Ref: <span className="text-yellow-500 font-semibold">{quoteRef}</span></p>
+          <button onClick={() => { setSubmitted(false); setQuoteRef('') }} className="btn-ghost">Submit another</button>
         </div>
       </div>
     )
@@ -52,7 +72,7 @@ export default function Quote() {
             </div>
             <div><label className="label">Delivery / Site Address *</label><input className="input" value={form.address} onChange={e => update('address', e.target.value)} placeholder="Full delivery address" /></div>
             <div><label className="label">Tell Us About Your Setup</label><textarea className="input resize-none" rows={4} value={form.notes} onChange={e => update('notes', e.target.value)} placeholder="Describe your current gas usage, number of appliances, storage setup, delivery frequency preferences, etc." /></div>
-            <button onClick={() => form.company && form.contact && form.phone && form.email && setSubmitted(true)} className="btn-primary w-full justify-center text-base py-3.5">
+            <button onClick={handleSubmit} className="btn-primary w-full justify-center text-base py-3.5">
               Submit Quote Request
             </button>
           </div>

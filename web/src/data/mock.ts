@@ -1,14 +1,15 @@
 // ─── Cylinders / Pricing ───────────────────────────────────────────────────
+// Prices from Gas Boys price board (July 2026)
 export const cylinders = [
-  { size: 3,   unit: 'kg', price: 62.70,  pricePerKg: 20.90, popular: false, type: 'Refill' },
-  { size: 4.5, unit: 'kg', price: 90.10,  pricePerKg: 20.90, popular: false, type: 'Refill' },
-  { size: 5,   unit: 'kg', price: 104.50, pricePerKg: 20.90, popular: false, type: 'Refill' },
-  { size: 6,   unit: 'kg', price: 125.40, pricePerKg: 20.90, popular: false, type: 'Refill' },
-  { size: 7,   unit: 'kg', price: 140.30, pricePerKg: 20.90, popular: false, type: 'Refill' },
-  { size: 9,   unit: 'kg', price: 180.00, pricePerKg: 20.90, popular: false, type: 'Refill' },
-  { size: 14,  unit: 'kg', price: 292.60, pricePerKg: 20.90, popular: false, type: 'Refill' },
-  { size: 19,  unit: 'kg', price: 395.00, pricePerKg: 20.90, popular: true,  type: 'Refill' },
-  { size: 48,  unit: 'kg', price: 970.00, pricePerKg: 20.90, popular: false, type: 'Refill — Commercial' },
+  { size: 1,   unit: 'kg', price: 41.50,   pricePerKg: 41.50, popular: false, type: 'Refill' },
+  { size: 3,   unit: 'kg', price: 124.50,  pricePerKg: 41.50, popular: false, type: 'Refill' },
+  { size: 4.5, unit: 'kg', price: 186.75,  pricePerKg: 41.50, popular: false, type: 'Refill' },
+  { size: 5,   unit: 'kg', price: 207.50,  pricePerKg: 41.50, popular: false, type: 'Refill' },
+  { size: 7,   unit: 'kg', price: 290.50,  pricePerKg: 41.50, popular: false, type: 'Refill' },
+  { size: 9,   unit: 'kg', price: 373.50,  pricePerKg: 41.50, popular: false, type: 'Refill' },
+  { size: 14,  unit: 'kg', price: 582.00,  pricePerKg: 41.57, popular: false, type: 'Refill' },
+  { size: 19,  unit: 'kg', price: 788.50,  pricePerKg: 41.50, popular: true,  type: 'Refill' },
+  { size: 48,  unit: 'kg', price: 1992.00, pricePerKg: 41.50, popular: false, type: 'Refill — Commercial' },
 ]
 
 // ─── Services ──────────────────────────────────────────────────────────────
@@ -56,28 +57,40 @@ export const services = [
 ]
 
 // ─── Products / Shop ───────────────────────────────────────────────────────
-const IMG = {
-  cylinder: '/cylinder.png',
-  single:   'https://images.unsplash.com/photo-1743612828221-7bdc71a8107a?w=400&h=300&fit=crop&auto=format',
-  double:   'https://images.unsplash.com/photo-1563729527945-2cc08fee1613?w=400&h=300&fit=crop&auto=format',
-  regulator:'https://images.unsplash.com/photo-1510467181625-c419e443bdfa?w=400&h=300&fit=crop&auto=format',
-  hose:     'https://images.unsplash.com/photo-1568124344138-7e165785e13a?w=400&h=300&fit=crop&auto=format',
-}
-
+// Images sourced from gas-boys-gallery/ (copied to public/gallery/)
 export const products = [
-  { id: 1, category: 'cylinders', name: '9 kg Gas Cylinder Refill', brand: 'ORYX Gas', price: 180.00, inStock: true, popular: false, description: 'Standard household cylinder. Suitable for small families, caravans and braais.', image: IMG.cylinder },
-  { id: 2, category: 'cylinders', name: '19 kg Gas Cylinder Refill', brand: 'ORYX Gas', price: 395.00, inStock: true, popular: true, description: 'Most popular choice. Ideal for family homes and small businesses.', image: IMG.cylinder },
-  { id: 3, category: 'cylinders', name: '48 kg Gas Cylinder Refill', brand: 'ORYX Gas', price: 970.00, inStock: true, popular: false, description: 'Commercial-grade cylinder for restaurants, factories and bulk users.', image: IMG.cylinder },
-  { id: 4, category: 'cylinders', name: '14 kg Gas Cylinder Refill', brand: 'ORYX Gas', price: 292.60, inStock: true, popular: false, description: 'Mid-size option ideal for medium households and B&Bs.', image: IMG.cylinder },
-  { id: 5, category: 'appliances', name: 'Single Burner Gas Stove', brand: 'Cadac', price: 549.00, inStock: true, popular: false, description: 'Compact single burner stove. Ideal for camping or backup cooking.', image: IMG.single },
-  { id: 6, category: 'appliances', name: 'Double Burner Gas Stove', brand: 'Totai', price: 890.00, inStock: true, popular: true, description: 'Freestanding double burner with ignition. Stainless steel finish.', image: IMG.double },
-  { id: 7, category: 'regulators', name: 'Low Pressure Regulator', brand: 'Flogas', price: 145.00, inStock: true, popular: false, description: 'Standard 1.5 kPa regulator for household use. SANS approved.', image: IMG.regulator },
-  { id: 8, category: 'regulators', name: 'High Pressure Regulator', brand: 'Flogas', price: 210.00, inStock: true, popular: false, description: '28 kPa regulator for commercial appliances and heaters.', image: IMG.regulator },
-  { id: 9, category: 'accessories', name: 'Gas Hose 1.5m', brand: 'Generic', price: 89.00, inStock: true, popular: false, description: 'SANS-approved rubber hose with fittings for indoor connections.', image: IMG.hose },
-  { id: 10, category: 'accessories', name: 'Gas Hose Clamps (2-pack)', brand: 'Generic', price: 25.00, inStock: true, popular: false, description: 'Stainless steel hose clamps. Essential for safe hose connections.', image: IMG.hose },
+  // Cylinders
+  { id: 1,  category: 'cylinders',   name: '9 kg Gas Cylinder Refill',            brand: 'ORYX Gas',    price: 373.50,  inStock: true,  popular: false, description: 'Standard household cylinder. Ideal for small families, caravans and braais.',         image: '/gallery/Full-Cylinder.jpg' },
+  { id: 2,  category: 'cylinders',   name: '19 kg Gas Cylinder Refill',           brand: 'ORYX Gas',    price: 788.50,  inStock: true,  popular: true,  description: 'Most popular choice. Ideal for family homes and small businesses.',                   image: '/gallery/Full-Cylinder.jpg' },
+  { id: 3,  category: 'cylinders',   name: '48 kg Gas Cylinder Refill',           brand: 'ORYX Gas',    price: 1992.00, inStock: true,  popular: false, description: 'Commercial-grade cylinder for restaurants, factories and bulk users.',                 image: '/gallery/Full-Cylinder.jpg' },
+  { id: 4,  category: 'cylinders',   name: '14 kg Gas Cylinder Refill',           brand: 'ORYX Gas',    price: 582.00,  inStock: true,  popular: false, description: 'Mid-size option. Great for medium households and B&Bs.',                              image: '/gallery/Full-Cylinder.jpg' },
+  // Burners & Stoves
+  { id: 5,  category: 'appliances',  name: '1 Burner Auto Stove',                 brand: 'Gas Boys',    price: 499.00,  inStock: true,  popular: false, description: 'Compact auto-ignition single burner. Perfect for camping or backup cooking.',         image: '/gallery/1-Burner-Auto.jpg' },
+  { id: 6,  category: 'appliances',  name: '2 Burner Auto Stove',                 brand: 'Gas Boys',    price: 699.00,  inStock: true,  popular: true,  description: 'Double burner with auto ignition. Great for home and outdoor use.',                   image: '/gallery/2-Burner-Auto.jpg' },
+  { id: 7,  category: 'appliances',  name: '2 Burner Table (Black)',              brand: 'Gas Boys',    price: 749.00,  inStock: true,  popular: false, description: 'Freestanding 2-burner braai table with folding legs. Powder-coated black finish.',    image: '/gallery/2-Burner-BTable-folding-Legs-Black.jpg' },
+  { id: 8,  category: 'appliances',  name: '3 Burner Table (Black)',              brand: 'Gas Boys',    price: 899.00,  inStock: true,  popular: false, description: 'Heavy-duty 3-burner table with folding legs. Ideal for catering and events.',         image: '/gallery/3-Burner-BTable-folding-Legs-Black-HD.jpg' },
+  { id: 9,  category: 'appliances',  name: '4 Burner Table (Black)',              brand: 'Gas Boys',    price: 1099.00, inStock: true,  popular: false, description: '4-burner high-output table with folding legs. Built for serious cooking.',             image: '/gallery/4-Burner-BTable-folding-Legs-Black-HD.jpg' },
+  { id: 10, category: 'appliances',  name: '4 Plate Stove + Gas Oven',            brand: 'Gas Boys',    price: 2499.00, inStock: true,  popular: false, description: 'Full kitchen setup. 4 plate gas stove with built-in gas oven.',                       image: '/gallery/4-Plate-Stove-Incl-GasOven.jpg' },
+  { id: 11, category: 'appliances',  name: '5 Plate Stove + Oven + Grill',        brand: 'Gas Boys',    price: 3299.00, inStock: true,  popular: false, description: 'Premium 5-plate stove with gas oven and grill. Restaurant-quality.',                  image: '/gallery/5Plate-Incl-GasOven-Grill.jpg' },
+  // Cast Iron
+  { id: 12, category: 'cast-iron',   name: 'Single Ring Burner',                  brand: 'Gas Boys',    price: 199.00,  inStock: true,  popular: false, description: 'Heavy-duty single cast iron ring burner. High output for rapid boiling.',             image: '/gallery/Single-Ring-Burner.jpg' },
+  { id: 13, category: 'cast-iron',   name: 'Double Ring Burner',                  brand: 'Gas Boys',    price: 349.00,  inStock: true,  popular: true,  description: 'Twin ring high-pressure burner. Built for industrial and catering use.',             image: '/gallery/Double-Ring-Burner.jpg' },
+  { id: 14, category: 'cast-iron',   name: 'Triple Ring Burner',                  brand: 'Gas Boys',    price: 499.00,  inStock: true,  popular: false, description: 'Triple ring burner for maximum output. Ideal for large-batch cooking.',              image: '/gallery/Triple-Ring-Burner.jpg' },
+  { id: 15, category: 'cast-iron',   name: 'Single Cast Iron Boiling Table',      brand: 'Gas Boys',    price: 599.00,  inStock: true,  popular: false, description: 'Single burner cast iron boiling table. Sturdy and long-lasting.',                    image: '/gallery/Single-Cast-Iron-Boiling-Table.jpg' },
+  { id: 16, category: 'cast-iron',   name: 'Double Cast Iron Boiling Table',      brand: 'Gas Boys',    price: 899.00,  inStock: true,  popular: false, description: 'Double burner cast iron boiling table. A favourite for outdoor caterers.',           image: '/gallery/Double-Cast-Iron-Boiling-Table.jpg' },
+  { id: 17, category: 'cast-iron',   name: 'Triple Cast Iron Boiling Table',      brand: 'Gas Boys',    price: 1199.00, inStock: true,  popular: false, description: 'Triple burner cast iron table. Handles the biggest pots.',                           image: '/gallery/Triple-Cast-Iron-Boiling-Table.jpg' },
+  // Accessories
+  { id: 18, category: 'accessories', name: 'Blow Torch',                          brand: 'Gas Boys',    price: 149.00,  inStock: true,  popular: false, description: 'Precision blow torch for brazing, soldering and gas installation work.',              image: '/gallery/Blow-Torch.jpg' },
+  { id: 19, category: 'accessories', name: 'Bullnose Regulator 1 kg/hr',          brand: 'Gas Boys',    price: 89.00,   inStock: true,  popular: false, description: 'Standard bullnose regulator rated at 1 kg/hr. For household appliances.',            image: '/gallery/Bullnose-1kg-hr-.jpg' },
+  { id: 20, category: 'accessories', name: 'Bullnose Regulator + Pressure Gauge', brand: 'Gas Boys',    price: 129.00,  inStock: true,  popular: false, description: 'Bullnose regulator with built-in pressure gauge for accurate flow monitoring.',      image: '/gallery/Bullnose-Regulator-with-pressure-gauge.jpg' },
+  { id: 21, category: 'accessories', name: '500mm Liquid Pig Tail',               brand: 'Gas Boys',    price: 79.00,   inStock: true,  popular: false, description: '500mm flexible liquid pig tail connector for gas cylinder connections.',             image: '/gallery/500mm-Liquid-Pig-Tail.jpg' },
+  { id: 22, category: 'accessories', name: 'Gas Fittings Set',                    brand: 'Gas Boys',    price: 59.00,   inStock: true,  popular: false, description: 'Assorted gas fittings for residential and commercial connections. SANS approved.',   image: '/gallery/Gas-Fittings.jpg' },
+  // Heating
+  { id: 23, category: 'heating',     name: 'Infrared Heater',                     brand: 'Gas Boys',    price: 899.00,  inStock: true,  popular: false, description: 'Energy-efficient infrared gas heater. Instant heat, no electricity required.',       image: '/gallery/Infrared-Heater.jpg' },
+  { id: 24, category: 'heating',     name: 'Patio Heater',                        brand: 'Gas Boys',    price: 1299.00, inStock: true,  popular: false, description: 'Freestanding patio gas heater. Warms up to 20m². Perfect for outdoor entertaining.', image: '/gallery/Patio-Heater.jpg' },
 ]
 
-export const productCategories = ['All', 'Cylinders', 'Appliances', 'Regulators', 'Accessories']
+export const productCategories = ['All', 'Cylinders', 'Appliances', 'Cast Iron', 'Accessories', 'Heating']
 
 // ─── Reviews ───────────────────────────────────────────────────────────────
 export const reviews = [
@@ -127,7 +140,7 @@ export const contactInfo = {
   address: '218 Whisken Road, Crowthorne, Midrand, 1686',
   phone1: '011 468 1130',
   phone2: '064 026 3510',
-  email: 'info@thegasboysmidrand.com',
+  email: 'sales@thegasboysmidrand.com',
   hours: 'Monday – Friday: 8:00am – 5:00pm',
   saturday: 'Saturday: By appointment',
   sunday: 'Sunday: Closed',

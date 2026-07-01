@@ -1,11 +1,13 @@
 import { useState, useEffect } from 'react'
 import { Link, useLocation } from 'react-router-dom'
-import { Phone, List, X, Fire } from '@phosphor-icons/react'
+import { Phone, List, X, MagnifyingGlass } from '@phosphor-icons/react'
+import logo from '/logo/gas-boys-logo-transparent-256.png'
 
 const links = [
   { label: 'Order Gas', to: '/order' },
   { label: 'Services', to: '/services' },
   { label: 'Shop', to: '/shop' },
+  { label: 'Safety', to: '/safety' },
   { label: 'About', to: '/about' },
   { label: 'Contact', to: '/contact' },
 ]
@@ -28,13 +30,8 @@ export default function Navbar() {
       <nav className={`fixed top-0 left-0 right-0 z-50 transition-all duration-300 ${scrolled ? 'bg-gas-bg/95 backdrop-blur-xl border-b border-gas-border shadow-xl' : 'bg-transparent'}`}>
         <div className="max-w-7xl mx-auto px-6 md:px-12 h-16 flex items-center justify-between">
           {/* Logo */}
-          <Link to="/" className="flex items-center gap-2">
-            <div className="w-7 h-7 rounded-lg bg-yellow-500 flex items-center justify-center">
-              <Fire size={16} weight="fill" className="text-black" />
-            </div>
-            <span className="font-display text-2xl bg-gradient-to-r from-yellow-500 to-orange-500 bg-clip-text text-transparent leading-none pt-1">
-              THE GAS BOYS
-            </span>
+          <Link to="/" className="flex items-center">
+            <img src={logo} alt="The Gas Boys Midrand" className="h-10 w-auto" />
           </Link>
 
           {/* Desktop Nav */}
@@ -56,8 +53,16 @@ export default function Navbar() {
               <Phone size={14} weight="fill" />
               011 468 1130
             </a>
+            <Link
+              to="/track"
+              className={`flex items-center gap-1.5 text-sm px-3 py-2 rounded-lg transition-colors ${
+                location.pathname === '/track' ? 'text-yellow-500 bg-gas-card' : 'text-gas-muted hover:text-gas-text hover:bg-gas-card/50'
+              }`}
+            >
+              <MagnifyingGlass size={14} weight="bold" />
+              Track Order
+            </Link>
             <Link to="/order" className="btn-primary text-sm py-2 px-4 rounded-lg">
-              <Fire size={14} weight="fill" />
               Order Gas
             </Link>
           </div>
@@ -78,10 +83,13 @@ export default function Navbar() {
                 {l.label}
               </Link>
             ))}
+            <Link to="/track" className="px-4 py-3.5 text-lg font-medium text-gas-text2 border-b border-gas-border flex items-center gap-2">
+              <MagnifyingGlass size={18} /> Track My Order
+            </Link>
           </div>
           <div className="mt-6 flex flex-col gap-3">
             <Link to="/order" className="btn-primary justify-center text-base py-3.5">
-              <Fire size={18} weight="fill" /> Order Gas Now
+              Order Gas Now
             </Link>
             <a href="tel:0114681130" className="btn-ghost justify-center text-base py-3.5">
               <Phone size={18} weight="fill" /> 011 468 1130

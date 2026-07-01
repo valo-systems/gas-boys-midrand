@@ -1,13 +1,30 @@
 import { useState } from 'react'
 import { Clipboard, CheckCircle, ChatsCircle, Phone } from '@phosphor-icons/react'
 import { contactInfo } from '../data/mock'
+import { useBookingStore } from '../stores/useBookingStore'
 
 const serviceTypes = ['Gas Repair', 'Gas Installation', 'CoC Certificate', 'Annual Inspection', 'Leak Test', 'Other']
 
 export default function Book() {
   const [submitted, setSubmitted] = useState(false)
+  const [bookingRef, setBookingRef] = useState('')
   const [form, setForm] = useState({ service: 'Gas Repair', date: '', time: 'Morning (8–12)', name: '', phone: '', email: '', address: '', notes: '' })
   const update = (k: string, v: string) => setForm(f => ({ ...f, [k]: v }))
+
+  const addBooking = useBookingStore(s => s.addBooking)
+
+  function handleSubmit() {
+    if (!form.name || !form.phone || !form.address) return
+    const ref = addBooking({
+      serviceType: form.service,
+      customer: { name: form.name, phone: form.phone, email: form.email, address: form.address },
+      date: form.date || new Date(Date.now() + 86400000).toISOString().split('T')[0],
+      time: form.time,
+      notes: form.notes,
+    })
+    setBookingRef(ref)
+    setSubmitted(true)
+  }
 
   if (submitted) {
     return (
@@ -18,8 +35,8 @@ export default function Book() {
           </div>
           <h2 className="font-display text-5xl mb-3">BOOKING <span className="text-yellow-500">CONFIRMED!</span></h2>
           <p className="text-gas-muted mb-2">We'll confirm your booking via SMS within 2 hours.</p>
-          <p className="text-sm text-gas-muted mb-8">Booking Ref: <span className="text-yellow-500 font-semibold">B-{Math.floor(Math.random()*900)+100}</span></p>
-          <button onClick={() => setSubmitted(false)} className="btn-ghost">Make another booking</button>
+          <p className="text-sm text-gas-muted mb-8">Booking Ref: <span className="text-yellow-500 font-semibold">{bookingRef}</span></p>
+          <button onClick={() => { setSubmitted(false); setBookingRef('') }} className="btn-ghost">Make another booking</button>
         </div>
       </div>
     )
@@ -72,7 +89,7 @@ export default function Book() {
               </div>
             </div>
 
-            <button onClick={() => form.name && form.phone && form.address && setSubmitted(true)} className="btn-primary w-full justify-center text-base py-3.5">
+            <button onClick={handleSubmit} className="btn-primary w-full justify-center text-base py-3.5">
               <Clipboard size={18} weight="duotone" /> Confirm Booking
             </button>
           </div>
